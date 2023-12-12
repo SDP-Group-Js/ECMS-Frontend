@@ -1,0 +1,82 @@
+{
+    "institutionWorkflows": [
+        {
+          "id": "1",
+          "name": "Injured Wildlife Response",
+          "stages": [
+            {"id": "1", "name": "Incident Report Intake"},
+            {"id": "2", "name": "Preliminary Assessment"},
+            {"id": "3", "name": "Assigning Responsibility"},
+            {"id": "4", "name": "On-Site Investigation"},
+            {"id": "5", "name": "Veterinary Assessment"},
+            {"id": "6", "name": "Rehabilitation or Treatment"},
+            {"id": "7", "name": "Release or Continued Care"}
+          ]
+        },
+        {
+          "id": "2",
+          "name": "Illegal Poaching or Trafficking",
+          "stages": [
+            {"id": "8", "name": "Incident Report Intake"},
+            {"id": "9", "name": "Preliminary Assessment"},
+            {"id": "10", "name": "Assigning Responsibility"},
+            {"id": "11", "name": "Coordinating with Law Enforcement"},
+            {"id": "12", "name": "Evidence Collection"},
+            {"id": "13", "name": "Legal Proceedings"},
+            {"id": "14", "name": "Public Awareness Campaign"}
+          ]
+        },
+        {
+          "id": "3",
+          "name": "Habitat Destruction or Pollution",
+          "stages": [
+            {"id": "15", "name": "Incident Report Intake"},
+            {"id": "16", "name": "Preliminary Assessment"},
+            {"id": "17", "name": "Assigning Responsibility"},
+            {"id": "18", "name": "On-Site Investigation"},
+            {"id": "19", "name": "Habitat Restoration Planning"},
+            {"id": "20", "name": "Collaborative Efforts with Environmental Agencies"},
+            {"id": "21", "name": "Monitoring and Follow-Up"}
+          ]
+        },
+        {
+          "id": "4",
+          "name": "Human-Wildlife Conflict",
+          "stages": [
+            {"id": "22", "name": "Incident Report Intake"},
+            {"id": "23", "name": "Preliminary Assessment"},
+            {"id": "24", "name": "Assigning Responsibility"},
+            {"id": "25", "name": "On-Site Investigation"},
+            {"id": "26", "name": "Risk Assessment"},
+            {"id": "27", "name": "Community Engagement"},
+            {"id": "28", "name": "Implementing Mitigation Strategies"}
+          ]
+        },
+        {
+          "id": "5",
+          "name": "Disease Outbreak",
+          "stages": [
+            {"id": "29", "name": "Incident Report Intake"},
+            {"id": "30", "name": "Preliminary Assessment"},
+            {"id": "31", "name": "Assigning Responsibility"},
+            {"id": "32", "name": "Quarantine and Biosecurity Measures"},
+            {"id": "33", "name": "Veterinary Assessment and Treatment"},
+            {"id": "34", "name": "Public Communication and Education"},
+            {"id": "35", "name": "Monitoring and Surveillance"}
+          ]
+        },
+        {
+          "id": "6",
+          "name": "Escaped or Released Exotic Species",
+          "stages": [
+            {"id": "36", "name": "Incident Report Intake"},
+            {"id": "37", "name": "Preliminary Assessment"},
+            {"id": "38", "name": "Assigning Responsibility"},
+            {"id": "39", "name": "Capture and Containment"},
+            {"id": "40", "name": "Risk Assessment"},
+            {"id": "41", "name": "Collaboration with Regulatory Agencies"},
+            {"id": "42", "name": "Public Safety Measures"}
+          ]
+        }
+      ]
+}
