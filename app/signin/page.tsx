@@ -1,24 +1,28 @@
 // @ts-ignore 'use client';
 'use client';
 
-import React, { useState } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import loginImg from '../assets/plant.jpg';
+import Image from 'next/image'
 
 
 export default function Authentication() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
 
-  const handleSignIn = (e) => {
+  const handleSignIn = (e : React.FormEvent) => {
     e.preventDefault();
     // sign-in logic here
+    console.log("Sign in success!");
+    console.log(email);
+    console.log(password);
+    console.log("\n");
   };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
       <div className="hidden sm:block">
-        <img className="w-full h-full object-cover" src={loginImg} alt="" />
+        <Image className="w-full h-full object-cover" src={loginImg} alt="" />
       </div>
 
       <div className="bg-gray-100 flex flex-col justify-center">
