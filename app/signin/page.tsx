@@ -1,14 +1,17 @@
 // @ts-ignore 'use client';
 'use client';
 
+
 import React, { MouseEvent, useState } from 'react';
 import loginImg from '../assets/plant.jpg';
 import Image from 'next/image'
+ 
 
 
 export default function Authentication() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
 
   const handleSignIn = (e : React.FormEvent) => {
     e.preventDefault();
@@ -19,11 +22,13 @@ export default function Authentication() {
     console.log("\n");
   };
 
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
       <div className="hidden sm:block">
         <Image className="w-full h-full object-cover" src={loginImg} alt="" />
       </div>
+
 
       <div className="bg-gray-100 flex flex-col justify-center">
         {/* Sign In Form */}
@@ -58,12 +63,16 @@ export default function Authentication() {
             <p className="flex items-center">
               <input className="mr-2" type="checkbox" /> Remember Me
             </p>
-            
+           
           </div>
         </form>
 
-      
+
+     
       </div>
     </div>
   );
 }
+
+
+
