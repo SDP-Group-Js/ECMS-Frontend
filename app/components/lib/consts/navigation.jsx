@@ -12,19 +12,19 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     {
 		key: 'complaints',
 		label: 'Complaints',
-		path: '/Complaints',
+		path: './Complaints',
 		icon: <FaFileSignature />
 	},
 	{
 		key: 'institutions',
 		label: 'Institutions',
-		path: '/Institutions',
+		path: './Institutions',
 		icon: <MdOutlineLocationCity />
 	},
 	{
 		key: 'users',
 		label: 'Users',
-		path: '/Users',
+		path: './Users',
 		icon: <FaUsers />
 	}
 ]

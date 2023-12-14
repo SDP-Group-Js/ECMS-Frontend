@@ -1,4 +1,3 @@
-// components/Sidebar.js
 'use client'
  
 import { useState } from 'react'
@@ -33,7 +32,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({ item }) => {
 };
 
 const Sidebar: React.FC = () => {
-  // Dummy user data (replace this with your actual user data)
+  // Dummy user data 
   const userData = {
     name: 'John Doe',
   };

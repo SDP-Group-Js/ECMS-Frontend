@@ -1,22 +1,20 @@
+// pages/dashboard.js
 import React from 'react';
-import Link from 'next/link';
+import UserTable from '../components/UserTable';
+
+
+const users = [
+  { id: 1, name: 'John Doe', email: 'john@example.com' },
+  { id: 2, name: 'Jane Doe', email: 'jane@example.com' },
+  // Add more users as needed
+];
 
 export default function Dashboard() {
   return (
-    <div>
-        <p>This is Dashboard</p>
-        <Link href="/Complaints" className="underline">
-          go to Complaints
-        </Link>
-        <br></br>
-        <Link href="/Institutions" className="underline">
-          go to Institutions
-        </Link>
-        <br></br>
-        <Link href="/Users" className="underline">
-          go to Users
-        </Link>
+    <div className='py-60'>
+      <p>Dashboard</p>
+      <UserTable users={users} />
+      {/* Other content or links */}
     </div>
-  )
+  );
 }
-
