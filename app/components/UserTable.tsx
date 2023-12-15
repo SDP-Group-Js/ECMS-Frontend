@@ -15,7 +15,7 @@ const UserTable: React.FC<UserTableProps> = ({ users}) => {
   return (
     <table className="min-w-full bg-white border border-gray-300">
       <thead>
-        <tr>
+        <tr className="tr bg-neutral-300">
           <th className="border px-4 py-2">ID</th>
           <th className="border px-4 py-2">Name</th>
           <th className="border px-4 py-2">Email</th>

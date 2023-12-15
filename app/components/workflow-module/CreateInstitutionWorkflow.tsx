@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import Modal from "../Modal";
+import Modal from "../InstModal";
 import { FaTimes, FaTrash } from "react-icons/fa";
 
 interface CreateInstitutionWorkflowParamTypes {

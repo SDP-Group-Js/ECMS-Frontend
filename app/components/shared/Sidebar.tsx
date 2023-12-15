@@ -32,7 +32,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({ item }) => {
 };
 
 const Sidebar: React.FC = () => {
-  // Dummy user data 
+  // Dummy data 
   const userData = {
     name: 'John Doe',
   };
@@ -55,7 +55,7 @@ const Sidebar: React.FC = () => {
       </div>
 
       <div>
-        <div className={classNames('text-red-500 pi', linkClasses)}>
+        <div className={classNames('pi', linkClasses)}>
           <span className='text-xl'>
             <FiLogOut />
           </span>

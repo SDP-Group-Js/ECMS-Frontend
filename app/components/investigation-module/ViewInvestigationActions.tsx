@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { FaAngleDown, FaAngleUp, FaExternalLinkAlt, FaTimes } from "react-icons/fa";
-import Modal from "../Modal";
+import Modal from "../InstModal";
 
 const ViewInvestigationActions = () => {
   return (
