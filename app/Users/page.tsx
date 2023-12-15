@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react'
-import Sidebar from '../../components/shared/Sidebar'
-import Header from '../../components/shared/Header'
-import Dashboard from '../../components/Dashboard'
+import Sidebar from '../components/shared/Sidebar'
+import UserHeader from './UserHeader'
+import Users from './Users';
 import './index.css';
 
 export default function Home(){
@@ -11,8 +11,8 @@ export default function Home(){
         <div className='flex flex-row bg-slate-50 h-screen w-screen overflow-hidden'>
             <Sidebar />
             <div className='flex-1'>
-                <Header />
-                <div className='p-4'><Dashboard /></div>
+                <UserHeader />
+                <div className='p-4'><Users /></div>
             </div>
         </div>
       );

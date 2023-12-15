@@ -1,8 +1,6 @@
 import React from 'react';
 import UserTable from '../components/UserTable';
 import EditDetailsBtn from '../components/EditDetailsbtn';
-import ReactModal from 'react-modal';
-
 
 const users = [
   { id: 1, name: 'John Doe', email: 'john@example.com' },
