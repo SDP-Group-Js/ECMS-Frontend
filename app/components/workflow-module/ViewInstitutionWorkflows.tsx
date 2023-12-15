@@ -11,7 +11,7 @@ const ViewInstitutionWorkflows = ({ institution }: any) => {
 
   return (
     <div className="border-2 rounded-lg w-5/6 m-auto mt-10 p-3">
-      <div className="font-bold text-2xl">Institutional Wsorkflows</div>
+      <div className="font-bold text-2xl">Institutional Workflows</div>
       <div className="flex flex-wrap">
         {institutionWorkflows.map((workflow) => (
           <div className="text-left w-1/3 py-2 pl-2">
