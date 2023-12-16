@@ -1,6 +1,8 @@
 "use client"
 import React, { useState } from "react";
 import CreateInstitutionWorkflow from "../components/workflow-module/CreateInstitutionWorkflow";
+import ViewInstitutionWorkflows from "../components/workflow-module/ViewInstitutionWorkflows";
+import ViewInvestigationActions from "../components/investigation-module/ViewInvestigationActions";
 
 const WorkflowPage = () => {
   const sampleInstitution = {
@@ -12,6 +14,8 @@ const WorkflowPage = () => {
 
   return (
     <div>
+      <ViewInstitutionWorkflows institution={sampleInstitution} />
+      <ViewInvestigationActions />
       <button onClick={() => setOpenCreateInstitutionWorkflowForm(true)} className="px-2 py-1 rounded bg-gray-600 text-white font-bold">Create New Workflow</button>
       {openCreateInstitutionWorkflowForm && (
         <CreateInstitutionWorkflow
