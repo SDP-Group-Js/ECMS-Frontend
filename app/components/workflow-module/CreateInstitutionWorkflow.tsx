@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import Modal from "../institution-module/InstModal";
 import { FaTimes, FaTrash } from "react-icons/fa";
 import SetStages from "./SetStages";
+import Modal from "../Modal";
 
 interface CreateInstitutionWorkflowParamTypes {
   institutionId: string;
