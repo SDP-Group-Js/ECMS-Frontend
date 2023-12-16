@@ -2,8 +2,8 @@
 
 import React from 'react'
 import Sidebarn from '../components/shared/Sidebarn'
-import InstmHeader from '../components/institution-module/institution-man/InstmHeader'
-import ManInst from '../components/institution-module/institution-man/Manage-Institutions';
+import InvestHeader from './InvestHeader'
+import Investigations from './Investigations';
 import './index.css';
 
 export default function Home(){
@@ -11,8 +11,8 @@ export default function Home(){
         <div className='flex flex-row bg-slate-50 h-screen w-screen overflow-hidden'>
             <Sidebarn />
             <div className='flex-1'>
-                <InstmHeader />
-                <div className='p-4'><ManInst /></div>
+                <InvestHeader />
+                <div className='p-4'><Investigations /></div>
             </div>
         </div>
       );

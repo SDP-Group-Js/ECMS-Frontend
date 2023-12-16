@@ -3,7 +3,7 @@
 import React from 'react'
 import Sidebar from '../../components/shared/Sidebar'
 import Header from '../../components/shared/Header'
-import Dashboard from '../../components/Dashboard'
+import Dashboard from '../../components//shared/DashboardContentPanel'
 import './index.css';
 
 export default function Home(){
