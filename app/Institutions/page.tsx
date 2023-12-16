@@ -1,18 +1,18 @@
 'use client';
 
 import React from 'react'
-import Sidebar from '../components/shared/Sidebar'
-import InstHeader from './InstHeader'
-import Institutions from './Institutions';
+import Sidebarn from '../components/shared/Sidebarn'
+import InstmHeader from '../components/institution-module/institution-man/InstmHeader'
+import ManInst from '../components/institution-module/institution-man/Manage-Institutions';
 import './index.css';
 
 export default function Home(){
     return (
         <div className='flex flex-row bg-slate-50 h-screen w-screen overflow-hidden'>
-            <Sidebar />
+            <Sidebarn />
             <div className='flex-1'>
-                <InstHeader />
-                <div className='p-4'><Institutions /></div>
+                <InstmHeader />
+                <div className='p-4'><ManInst /></div>
             </div>
         </div>
       );
