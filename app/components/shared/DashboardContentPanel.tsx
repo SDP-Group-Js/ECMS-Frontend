@@ -20,7 +20,7 @@ const DashboardContentPanel = () => {
   };
 
   return (
-    <div>
+    <div className="text-xl">
       <DashboardContentPanelHeader
         onComplaintsClick={handleComplaintsClick}
         onInvestigationsClick={handleInvestigationsClick}

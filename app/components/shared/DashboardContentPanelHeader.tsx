@@ -14,12 +14,12 @@ const DashboardContentPanelHeader = ({
   activeTab,
 }: props) => {
   return (
-    <div className='font-bold flex justify-start items-center space-x-6'>
+    <div className="flex items-center justify-start space-x-6 font-bold">
       <button
         onClick={onComplaintsClick}
         className={
           activeTab === "complaints"
-            ? "text-white bg-gray-700 rounded-t-md px-10 py-1"
+            ? "rounded-t-md bg-gray-700 px-10 py-[0.5rem] text-white"
             : ""
         }
       >
@@ -29,7 +29,7 @@ const DashboardContentPanelHeader = ({
         onClick={onInvestigationsClick}
         className={
           activeTab === "investigations"
-            ? "text-white bg-gray-700 rounded-t-md px-10 py-1"
+            ? "rounded-t-md bg-gray-700 px-10 py-[0.5rem] text-white"
             : ""
         }
       >
@@ -39,7 +39,7 @@ const DashboardContentPanelHeader = ({
         onClick={onWorkflowsClick}
         className={
           activeTab === "workflows"
-            ? "text-white bg-gray-700 rounded-t-md px-10 py-1"
+            ? "rounded-t-md bg-gray-700 px-10 py-[0.5rem] text-white"
             : ""
         }
       >

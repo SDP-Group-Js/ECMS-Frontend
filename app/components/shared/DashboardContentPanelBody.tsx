@@ -7,7 +7,7 @@ type props = {
 
 const DashboardContentPanelBody = ({ activeTab }: props) => {
   return (
-    <div className='border-2 border-gray-700 rounded-md p-4'>
+    <div className="rounded-md border-2 border-gray-400 p-4">
       <div
         className={activeTab === "complaints" ? "block px-2 py-1" : "hidden"}
       >

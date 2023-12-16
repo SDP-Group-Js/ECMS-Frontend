@@ -4,7 +4,9 @@ import InvestigationStatusTag from "./InvestigationStatusTag";
 type props = {
   investigationId: number;
   investigationStatus: string;
-  investigationOfficeId: string;
+  investigationOfficeId: string | null;
+  investigationOfficeType: string | null;
+  investigationOfficeName: string | null;
   investigationUpdateDate: Date;
 };
 
@@ -12,21 +14,26 @@ const InvestigationCard = ({
   investigationId,
   investigationStatus,
   investigationOfficeId,
+  investigationOfficeType,
+  investigationOfficeName,
   investigationUpdateDate,
 }: props) => {
   return (
-    <div className='border-2 border-gray-700 rounded-xl px-4 py-2 flex justify-between items-center my-2'>
+    <div className="my-2 flex items-center justify-between rounded-xl border-2 border-gray-400 px-4 py-[0.75rem]">
       <div>{investigationId}</div>
-      <div className='flex justify-center items-center space-x-10'>
-        <span>
-          <InvestigationStatusTag status={investigationStatus} />
-        </span>
-        <span
-          className={investigationStatus === "Allocated" ? "block" : "hidden"}
+      <div className="flex items-center justify-center space-x-10">
+        <div
+          className={investigationStatus === "NotAssigned" ? "hidden" : "block"}
         >
-          {investigationOfficeId}
-        </span>
-        <span>{investigationUpdateDate.toLocaleDateString()}</span>
+          {investigationOfficeType}: {investigationOfficeName}
+        </div>
+        <div className="w-30 flex items-center justify-center">
+          <InvestigationStatusTag
+            investigationId={investigationId}
+            investigationStatus={investigationStatus}
+          />
+        </div>
+        <div>{investigationUpdateDate.toLocaleDateString()}</div>
       </div>
     </div>
   );
