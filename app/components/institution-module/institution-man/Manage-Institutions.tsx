@@ -1,24 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link  from 'next/link'
+import AddInstitutionModal from './AddInstitutionModal'
+import InstituteTable from './InstitutionTable'
+
+import { MdGroupAdd } from "react-icons/md";
+
 
 export default function ManInst() {
+  const [addModalVisible, setAddModalVisible] = useState(false);
+
+  const handleModalCloseButtonClick = () => {
+    setAddModalVisible(false);
+  };
+
+  const handleAddButtonClick = () => {
+    setAddModalVisible(true);
+  };
+
   return (
     <div>
         <br></br>
-        <br></br>
-      <div className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-700">
-          <ul className="text-sm p-4 font-medium text-center text-white border-b rounded-t-lg bg-gray-50 dark:border-white dark:text-white dark:bg-neutral-800" id="defaultTab">
-              Institutes
-              <li className="me-2">
-              </li>
-          </ul>
-          <div id="defaultTabContent">
-              <div className=" p-4 bg-white rounded-lg md:p-8 dark:bg-white" id="about" role="tabpanel" aria-labelledby="about-tab">
-                <h2 className="mb-3 text-3xl font-extrabold tracking-tight text-neutral-800">View User Details</h2>
+        <div className="mx-14 my-10 rounded-md border-2 border-gray-400 px-3 py-4">
+          <div className="mt-8 text-lg">
+            <div className="flex items-center justify-start space-x-3">
+              <div className="w-60">
+                <button onClick={handleAddButtonClick} className=" flex w-50 h-15 items-center justify-center rounded-lg border-2 border-gray-700 bg-gray-700 px-2 py-1 font-bold text-white hover:border-gray-500 hover:bg-white hover:text-gray-500">
+                  <MdGroupAdd className='w-6 h-8'/> Add Institution
+                </button>
+                <AddInstitutionModal
+                  isVisible={addModalVisible}
+                  handleModalCloseButtonClick={handleModalCloseButtonClick}
+                  textToDisplay="Add Institute"
+                  onClick={(handleAddButtonClick)}
+                />
+                </div>
+                <div className='flex justify-end items-center w-full'>
+                  <label className="w-90">Number Of Institutes: </label>
+                  <span className="w-90">21 </span>
+                </div>
               </div>
+              <br></br>
+
+              <InstituteTable />
+            </div>
           </div>
       </div>
-
-    </div>
   )
 }

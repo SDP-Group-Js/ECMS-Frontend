@@ -7,7 +7,7 @@ export default function InstmHeader() {
         
         <div className='flex justify-between items-center gap-2 tg'>
             <GiElephant fontSize={40}/>
-            <span className='text-stone-900 text-lg ts'>View Insitutions</span>
+            <span className='text-stone-900 text-lg ts'>Manage Insitutions</span>
         </div>
 
     </div>
