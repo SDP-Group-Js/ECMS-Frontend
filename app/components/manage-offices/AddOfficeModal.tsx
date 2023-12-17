@@ -46,7 +46,7 @@ const AddOfficeModal = ({
             <label>Office Id:&nbsp;</label>
             <input
               type="text"
-              placeholder="Enter Institute ID"
+              placeholder="Enter Office ID"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
             />
           </div>
@@ -55,7 +55,7 @@ const AddOfficeModal = ({
             <label>Office Name:&nbsp;</label>
             <input
               type="text"
-              placeholder="Enter Institute Name"
+              placeholder="Enter Office Name"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
             />
           </div>
@@ -76,7 +76,7 @@ const AddOfficeModal = ({
             <label>Office Description:&nbsp;</label>
             <input
               type="text"
-              placeholder="Enter Institute Description"
+              placeholder="Enter Office Description"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
             />
           </div>
