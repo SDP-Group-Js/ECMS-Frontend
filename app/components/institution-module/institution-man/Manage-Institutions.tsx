@@ -13,7 +13,7 @@ export default function ManInst() {
               </li>
           </ul>
           <div id="defaultTabContent">
-              <div className=" p-4 bg-white rounded-lg md:p-8 dark:bg-white" id="about" role="tabpanel" aria-labelledby="about-tab">
+              <div className="p-4 bg-white rounded-lg md:p-8 dark:bg-white" id="about" role="tabpanel" aria-labelledby="about-tab">
                 <h2 className="mb-3 text-3xl font-extrabold tracking-tight text-neutral-800">View User Details</h2>
               </div>
           </div>
