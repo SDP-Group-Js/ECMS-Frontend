@@ -6,7 +6,7 @@ import {
   FaExternalLinkAlt,
   FaTimes,
 } from "react-icons/fa";
-import Modal from "../institution-module/InstModal";
+import Modal from "../Modal";
 
 const ViewInvestigationActions = () => {
   return (

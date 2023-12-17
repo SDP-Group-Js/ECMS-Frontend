@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import Modal from "../institution-module/InstModal";
 import { FaTimes, FaTrash } from "react-icons/fa";
 import SetStages from "./SetStages";
+import Modal from "../Modal";
 
 interface CreateInstitutionWorkflowParamTypes {
   institutionId: string;
@@ -32,31 +32,30 @@ const CreateInstitutionWorkflow = ({
     <Modal onClick={closeForm}>
       <div
         onClick={(e) => e.stopPropagation()}
-        className='bg-white relative text-center px-20 h-[600px] rounded-xl'
+        className="relative h-[600px] rounded-xl bg-white px-20 text-center"
       >
-        <button className='bg-red-700 text-white rounded-full p-1 w-fit h-fit absolute top-2 right-2'>
-          <FaTimes className='text-2xl' />
+        <button className="absolute right-2 top-2 h-fit w-fit rounded-full bg-red-700 p-1 text-white">
+          <FaTimes className="text-2xl" />
         </button>
-        <div className='text-3xl font-black mt-5'>
+        <div className="mt-5 text-3xl font-black">
           Create new workflow for {institutionName}
         </div>
-        <div className='mt-10 w-[600px] m-auto'>
-          <div className=''>
-            <div className='w-full text-left font-bold'>Workflow Name</div>
+        <div className="m-auto mt-10 w-[600px]">
+          <div className="">
+            <div className="w-full text-left font-bold">Workflow Name</div>
             <input
               value={workflowName}
               onChange={(e) => setWorkflowName(e.target.value)}
-              id='stageName'
-              className='text-xl w-full h-10 px-2 rounded-lg border-2 border-gray-700'
+              id="stageName"
+              className="h-10 w-full rounded-lg border-2 border-gray-700 px-2 text-xl"
             />
           </div>
 
           <SetStages stages={stages} setStages={setStages} />
-          
 
           <button
             onClick={createWorkflow}
-            className='px-2 py-1 rounded-lg bg-gray-700 font-bold text-xl text-white mt-5'
+            className="mt-5 rounded-lg bg-gray-700 px-2 py-1 text-xl font-bold text-white"
           >
             Create Workflow
           </button>
