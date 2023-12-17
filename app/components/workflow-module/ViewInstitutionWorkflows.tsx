@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import dumbyData from "../../../tests/dumbyData.json";
 import { FaExternalLinkAlt, FaTimes } from "react-icons/fa";
-import Modal from "../institution-module/InstModal";
+import Modal from "../Modal";
 
 const ViewInstitutionWorkflows = ({ institution }: any) => {
   const institutionWorkflows = dumbyData.institutionWorkflows;
