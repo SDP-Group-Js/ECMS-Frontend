@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react'
-import Sidebar from '../components/shared/Sidebar'
+import Sidebar from '../../components/shared/Sidebar'
 import UserHeader from './UserHeader'
 import Users from './Users';
 import './index.css';
