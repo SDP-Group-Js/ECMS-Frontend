@@ -8,7 +8,7 @@ const InstitutionTable = () => {
       <InstitutionCard
         institutionId={1}
         institutionName="institution Name"
-        institutionType="institution Type"
+        institutionType="institution Type" //The Type
         institutionDescription="Description"
       />
       <InstitutionCard
