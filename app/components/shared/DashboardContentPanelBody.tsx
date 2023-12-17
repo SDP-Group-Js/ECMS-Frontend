@@ -1,5 +1,5 @@
 import React from "react";
-import InvestigationsTable from "../investigation-module/InvestigationsTable";
+import InvestigationsTable from "../investigation/InvestigationsTable";
 
 type props = {
   activeTab: string;

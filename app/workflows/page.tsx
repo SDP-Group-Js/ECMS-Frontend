@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import React, { useState } from "react";
-import CreateInstitutionWorkflow from "../components/workflow-module/CreateInstitutionWorkflow";
-import ViewInstitutionWorkflows from "../components/workflow-module/ViewInstitutionWorkflows";
-import ViewInvestigationActions from "../components/investigation-module/ViewInvestigationActions";
-import SetInvestigationWorkflow from "../components/workflow-module/SetInvestigationWorkflow";
+import CreateInstitutionWorkflow from "../components/workflow/CreateInstitutionWorkflow";
+import ViewInstitutionWorkflows from "../components/workflow/ViewInstitutionWorkflows";
+import ViewInvestigationActions from "../components/investigation/ViewInvestigationActions";
+import SetInvestigationWorkflow from "../components/workflow/SetInvestigationWorkflow";
 import dumbyData from "../../tests/dumbyData.json";
 
 const WorkflowPage = () => {
@@ -12,27 +12,43 @@ const WorkflowPage = () => {
     name: "Wildlife",
   };
 
-  const [openCreateInstitutionWorkflowForm, setOpenCreateInstitutionWorkflowForm] = useState(false)
-  const [openSetInvestigationWorkflowForm, setOpenSetInvestigationWorkflowForm] = useState(false)
+  const [
+    openCreateInstitutionWorkflowForm,
+    setOpenCreateInstitutionWorkflowForm,
+  ] = useState(false);
+  const [
+    openSetInvestigationWorkflowForm,
+    setOpenSetInvestigationWorkflowForm,
+  ] = useState(false);
 
   return (
     <div>
       <ViewInstitutionWorkflows institution={sampleInstitution} />
       <ViewInvestigationActions />
-      <button onClick={() => setOpenCreateInstitutionWorkflowForm(true)} className="px-2 py-1 rounded bg-gray-600 text-white font-bold">Create New Workflow</button>
+      <button
+        onClick={() => setOpenCreateInstitutionWorkflowForm(true)}
+        className="rounded bg-gray-600 px-2 py-1 font-bold text-white"
+      >
+        Create New Workflow
+      </button>
       {openCreateInstitutionWorkflowForm && (
         <CreateInstitutionWorkflow
-        institutionId={sampleInstitution.id}
-        institutionName={sampleInstitution.name}
-        closeForm={() => setOpenCreateInstitutionWorkflowForm(false)}
-      />
+          institutionId={sampleInstitution.id}
+          institutionName={sampleInstitution.name}
+          closeForm={() => setOpenCreateInstitutionWorkflowForm(false)}
+        />
       )}
-      <button onClick={() => setOpenSetInvestigationWorkflowForm(true)} className="px-2 py-1 rounded bg-gray-600 text-white font-bold">Set Investigation Workflow</button>
+      <button
+        onClick={() => setOpenSetInvestigationWorkflowForm(true)}
+        className="rounded bg-gray-600 px-2 py-1 font-bold text-white"
+      >
+        Set Investigation Workflow
+      </button>
       {openSetInvestigationWorkflowForm && (
         <SetInvestigationWorkflow
           investigationId="3290w9dfsi"
-          closeForm={() => setOpenSetInvestigationWorkflowForm(false)} 
-          institutionWorkflows={dumbyData.institutionWorkflows}      
+          closeForm={() => setOpenSetInvestigationWorkflowForm(false)}
+          institutionWorkflows={dumbyData.institutionWorkflows}
         />
       )}
     </div>
