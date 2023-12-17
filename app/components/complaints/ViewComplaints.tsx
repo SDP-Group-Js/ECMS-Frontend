@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from "react";
 
 const ViewComplaints = () => {
+  const [selectedComplaint, setSelectedComplaint] = useState<any>();
   return (
-    <div>ViewComplaints</div>
-  )
-}
+    <div>
+      <div></div>
+    </div>
+  );
+};
 
-export default ViewComplaints
+export default ViewComplaints;
