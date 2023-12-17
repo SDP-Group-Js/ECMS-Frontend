@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import Sidebar from "@/app/_components/shared/Sidebar";
-import Header from "@/app/_components/shared/Header";
+import Sidebar from "@/app/components/shared/Sidebar";
+import Header from "@/app/components/shared/Header";
 import "@/app/components/shared/HeaderStyles.css";
-import DashboardContentPanel from "@/app/_components/shared/DashboardContentPanel";
-import InvestigationStatusTag from "@/app/_components/investigation-module/InvestigationStatusTag";
-import ViewRelationButton from "@/app/_components/investigation-module/ViewRelationButton";
-import StakeholderCard from "@/app/_components/investigation-module/StakeholderCard";
-import StakeholderList from "@/app/_components/investigation-module/StakeholderList";
+import DashboardContentPanel from "@/app/components/shared/DashboardContentPanel";
+import InvestigationStatusTag from "@/app/components/investigation/InvestigationStatusTag";
+import ViewRelationButton from "@/app/components/investigation/ViewRelationButton";
+import StakeholderCard from "@/app/components/investigation/StakeholderCard";
+import StakeholderList from "@/app/components/investigation/StakeholderList";
 
 interface params {
   params: { id: number };

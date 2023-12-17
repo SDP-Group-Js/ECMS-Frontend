@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Link  from 'next/link'
-import AddInstitutionModal from './AddInstitutionModal'
-import InstituteTable from './InstitutionTable'
+import AddDivisionModal from './AddDivisionModal'
+import DivisionTable from './DivisionTable'
 
 import { MdGroupAdd } from "react-icons/md";
 
@@ -25,12 +25,12 @@ export default function ManInst() {
             <div className="flex items-center justify-start space-x-3">
               <div className="w-60">
                 <button onClick={handleAddButtonClick} className=" flex w-50 h-15 items-center justify-center rounded-lg border-2 border-gray-700 bg-gray-700 px-2 py-1 font-bold text-white hover:border-gray-500 hover:bg-white hover:text-gray-500">
-                  <MdGroupAdd className='w-6 h-8'/> Add Institution
+                  <MdGroupAdd className='w-6 h-8'/> Add Division
                 </button>
-                <AddInstitutionModal
+                <AddDivisionModal
                   isVisible={addModalVisible}
                   handleModalCloseButtonClick={handleModalCloseButtonClick}
-                  textToDisplay="Add Institute"
+                  textToDisplay="Add Division"
                   onClick={(handleAddButtonClick)}
                 />
                 </div>
@@ -41,7 +41,7 @@ export default function ManInst() {
               </div>
               <br></br>
 
-              <InstituteTable />
+              <DivisionTable />
             </div>
           </div>
       </div>
