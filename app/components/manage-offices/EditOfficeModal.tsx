@@ -1,27 +1,27 @@
 import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
-type EditInstitutionModalProps = {
+type EditOfficeModalProps = {
   isVisible: boolean;
-  institutionId: number;
-  institutionName: string | null;
-  institutionDescription: string | null;
-  institutionType: string | null;
+  officeId: number;
+  officeName: string | null;
+  officeDescription: string | null;
+  officeType: string | null;
   handleModalCloseButtonClick: () => void;
 };
 
-const EditInstitutionModal = ({
+const EditOfficeModal = ({
   isVisible,
   handleModalCloseButtonClick,
-  institutionId,
-  institutionName,
-  institutionDescription,
-  institutionType,
-}: EditInstitutionModalProps) => {
+  officeId,
+  officeName,
+  officeDescription,
+  officeType,
+}: EditOfficeModalProps) => {
   if (!isVisible) return null;
 
   const handleEditButtonClick = () => {
-    console.log("Institution Edited");
+    console.log("Office Edited");
   };
 
   return (
@@ -32,7 +32,7 @@ const EditInstitutionModal = ({
           className="mx-1 flex items-center justify-between md:mx-2 lg:mx-3"
         >
           <h2 className="text-base font-bold md:text-lg lg:text-xl">
-            Edit Institution
+            Edit Ofiice
           </h2>
           <button
             className="place-self-end rounded-lg p-2 text-2xl text-black hover:bg-red-500 hover:text-white"
@@ -42,62 +42,62 @@ const EditInstitutionModal = ({
           </button>
         </div>
         <div
-          id="EditInstitutionModalContent"
+          id="EditofficeModalContent"
           className="my-2 w-full flex-col justify-center text-xl"
         >
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Institution Id:&nbsp;</label>
+            <label>Office Id:&nbsp;</label>
             <input
               type="text"
-              value={institutionId}
+              value={officeId}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
               readOnly
             />
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Institution Name:&nbsp;</label>
+            <label>Office Name:&nbsp;</label>
             <input
               type="text"
-              value={institutionName ?? ''}
+              value={officeName ?? ''}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
             />
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Institution Type:</label>
+            <label>Office Type:</label>
             <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              {institutionType === null ? (
+              {officeType === null ? (
                 ""
               ) : (
-                <option value={institutionType} selected>
+                <option value={officeType} selected>
                   [Selected Type]
                 </option>
               )}
-              <option value="[Id of the institution]">[Type]</option>
-              <option value="[Id of the institution]">[Type]</option>
-              <option value="[Id of the institution]">[Type]</option>
+              <option value="[Id of the office]">[Type]</option>
+              <option value="[Id of the office]">[Type]</option>
+              <option value="[Id of the office]">[Type]</option>
             </select>
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Institution Description:&nbsp;</label>
+            <label>Office Description:&nbsp;</label>
             <input
               type="text"
-              value={institutionDescription ?? ''}
+              value={officeDescription ?? ''}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
             />
           </div>
         </div>
         <div
-          id="EditInstitutionModalFooter"
+          id="EditOfficeModalFooter"
           className="mx-1 my-1 flex items-center justify-center md:mx-3 lg:mx-5"
         >
           <button
             className="rounded-lg border-2 border-green-700 bg-green-700 p-2 text-white hover:border-green-700 hover:bg-white hover:text-green-700"
             onClick={handleEditButtonClick}
           >
-            Edit Institution
+            Edit Office
           </button>
         </div>
       </div>
@@ -105,4 +105,4 @@ const EditInstitutionModal = ({
   );
 };
 
-export default EditInstitutionModal;
+export default EditOfficeModal;
