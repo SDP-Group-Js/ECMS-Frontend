@@ -1,16 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
-import { auth } from "@/config/firebaseStorage";
-import { signInWithEmailAndPassword } from "firebase/auth";
-
-import Link from "next/link";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const router = useRouter();
+
+  const auth = getAuth()
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -41,15 +43,12 @@ export default function LoginForm() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
       <div className="hidden sm:block">
-        <Image className="w-full h-full object-cover" src={loginImg} alt="" />
+        <Image className="w-full h-full object-cover" src='./assets/plant.png' alt="" />
       </div>
-
-
-
 
       <div className="bg-gray-100 flex flex-col justify-center">
         {/* Sign In Form */}
-        <form className="max-w-[400px] w-full mx-auto bg-white p-4" onSubmit={handleSignIn}>
+        <form className="max-w-[400px] w-full mx-auto bg-white p-4" onSubmit={login}>
           <h2 className="text-4xl font-bold text-center py-6">SIGN IN</h2>
           <div className="flex flex-col py-2">
             <label>Email address</label>

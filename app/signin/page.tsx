@@ -1,10 +1,5 @@
-import LoginForm from "@/app/components/LoginForm";
+import LoginForm from "./LoginForm";
 
-export default async function LoginForm() {
+export default async function SignPage() {
   return <LoginForm />;
 }
-
-
-
-
-

@@ -6,7 +6,7 @@ import {
   FaExternalLinkAlt,
   FaTimes,
 } from "react-icons/fa";
-import Modal from "../Modal";
+import Modal from "../workflow/Modal";
 
 const ViewInvestigationActions = () => {
   return (
