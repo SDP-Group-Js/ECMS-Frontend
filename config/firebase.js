@@ -10,8 +10,8 @@ const firebaseConfig = {
   projectId: "sdpgroupjs",
   storageBucket: "sdpgroupjs.appspot.com",
   messagingSenderId: "866191024865",
-  appId: "1:866191024865:web:072bd71887795add79cda0",
-  measurementId: "G-81MYQKZQSL",
+  appId: "1:866191024865:web:f948be0ebfb235f479cda0",
+  measurementId: "G-LH2KY4X3MK"
 };
 
 const app = initializeApp(firebaseConfig);

@@ -43,7 +43,7 @@ export default function LoginForm() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
       <div className="hidden sm:block">
-        <Image className="w-full h-full object-cover" src='./assets/plant.png' alt="" />
+        <Image width={100} height={100} className="w-full h-full object-cover" src='/plant.jpg' alt="" />
       </div>
 
       <div className="bg-gray-100 flex flex-col justify-center">
@@ -82,11 +82,6 @@ export default function LoginForm() {
            
           </div>
         </form>
-
-
-
-
-     
       </div>
     </div>
   );
