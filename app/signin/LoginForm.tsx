@@ -4,7 +4,6 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,7 +11,7 @@ export default function LoginForm() {
 
   const router = useRouter();
 
-  const auth = getAuth()
+  const auth = getAuth();
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -39,17 +38,25 @@ export default function LoginForm() {
     }
   };
 
-
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
+    <div className="grid h-screen w-full grid-cols-1 sm:grid-cols-2">
       <div className="hidden sm:block">
-        <Image width={100} height={100} className="w-full h-full object-cover" src='/plant.jpg' alt="" />
+        <Image
+          width={100}
+          height={100}
+          className="h-full w-full object-cover"
+          src="/plant.jpg"
+          alt=""
+        />
       </div>
 
-      <div className="bg-gray-100 flex flex-col justify-center">
+      <div className="flex flex-col justify-center bg-gray-100">
         {/* Sign In Form */}
-        <form className="max-w-[400px] w-full mx-auto bg-white p-4" onSubmit={login}>
-          <h2 className="text-4xl font-bold text-center py-6">SIGN IN</h2>
+        <form
+          className="mx-auto w-full max-w-[400px] bg-white p-4"
+          onSubmit={login}
+        >
+          <h2 className="py-6 text-center text-4xl font-bold">SIGN IN</h2>
           <div className="flex flex-col py-2">
             <label>Email address</label>
             <input
@@ -72,14 +79,16 @@ export default function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button className="border w-full my-5 py-2 bg-emerald-600 hover:bg-green-500 text-white" type="submit">
+          <button
+            className="my-5 w-full border bg-emerald-600 py-2 text-white hover:bg-green-500"
+            type="submit"
+          >
             Sign In
           </button>
           <div className="flex justify-between">
             <p className="flex items-center">
               <input className="mr-2" type="checkbox" /> Remember Me
             </p>
-           
           </div>
         </form>
       </div>

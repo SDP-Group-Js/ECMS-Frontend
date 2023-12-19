@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import Sidebar from "@/app/components/shared/Sidebar";
-import Header from "@/app/components/shared/Header";
+import Sidebar from "@/components/shared/Sidebar";
+import Header from "@/components/shared/Header";
 import "@/app/components/shared/HeaderStyles.css";
-import DashboardContentPanel from "@/app/components/shared/DashboardContentPanel";
+import DashboardContentPanel from "@/components/shared/DashboardContentPanel";
 
 export default function Home() {
   return (
