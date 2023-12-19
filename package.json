@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.7",
     "@types/react-modal": "^3.16.3",
     "@types/react-router-dom": "^5.3.3",
     "classname": "^0.0.0",
     "classnames": "^2.3.2",
+    "firebase": "^10.7.1",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",

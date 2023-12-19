@@ -1,7 +1,8 @@
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>feature/dashboard-institution</div>
+      <h1>Home page</h1>
+      <div>Frontend for EnCMS</div>
     </main>
   )
 }

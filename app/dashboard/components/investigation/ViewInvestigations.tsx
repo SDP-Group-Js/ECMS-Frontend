@@ -26,7 +26,8 @@ const ViewInvestigations = ({ office }: any) => {
 
   return (
     <div>
-      <div>
+      View Investigations
+      {/* <div>
         <div>Main Investigations</div>
         {office.assignedInvestigation.map((investigation, index) => (
           <InvestigationCard
@@ -51,7 +52,7 @@ const ViewInvestigations = ({ office }: any) => {
             investigationUpdateDate={new Date()}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
