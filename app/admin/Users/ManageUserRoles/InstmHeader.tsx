@@ -1,7 +1,7 @@
 import React from 'react'
 import { GiElephant } from "react-icons/gi"
 
-export default function InstHeader() {
+export default function InstmHeader() {
   return (
     <div className='h-20 px-7 flex justify-between items-center'>
         
