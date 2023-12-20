@@ -27,7 +27,7 @@ const ViewWorkflows = ({ office }: any) => {
         />
       )}
       <div className="flex flex-wrap">
-        {office.workflows.map((workflow: any) => (
+        {office?.workflows.map((workflow: any) => (
           <div className="w-1/3 py-2 pl-2 text-left">
             <button
               onClick={() => setSelectedWorkflow(workflow)}

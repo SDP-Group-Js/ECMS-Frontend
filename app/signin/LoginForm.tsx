@@ -1,8 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/auth";
+import { auth } from "@/config/firebase";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -11,14 +13,13 @@ export default function LoginForm() {
 
   const router = useRouter();
 
-  const auth = getAuth();
+  const {user} = useAuth()
 
   useEffect(() => {
-    const user = auth.currentUser;
     if (user) {
-      router.push("../report-complaint");
+      router.push("/dashboard")
     }
-  });
+  }, [])
 
   const login = async (e: any) => {
     e.preventDefault();
