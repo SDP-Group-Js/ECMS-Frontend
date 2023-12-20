@@ -32,7 +32,7 @@ export default function LoginForm() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert("Login Successful");
-      router.push("../report-complaint");
+      router.push("/dashboard");
     } catch (error: any) {
       setError(error.message);
       alert(error.message);

@@ -28,7 +28,7 @@ export default function InstitutionPage() {
         <div>Main Dashboard</div>
         {/* <div>{userOffice.name}</div> */}
 
-        <ViewWorkflows office={user.office} />
+        <ViewWorkflows office={user.details.office} />
 
         {/* <div>
           {userOffice?.institution && (
