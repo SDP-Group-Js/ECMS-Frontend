@@ -31,12 +31,15 @@ const CreateInstitutionWorkflow = ({
       description: description,
     };
 
+    console.log(body)
+
     if (user) {
+      const token = await user.getIdToken(true)
       const request = await fetch(`${API_URL}/api/workflow/instiution`, {
         method: "POST",
         body: JSON.stringify(body),
         headers: {
-          "Authorization": `Bearer ${user.getIdToken(true)}`
+          "Authorization": `Bearer ${token}`
         }
       })
 
@@ -52,9 +55,9 @@ const CreateInstitutionWorkflow = ({
     <Modal onClick={closeForm}>
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative h-[600px] rounded-xl bg-white px-20 text-center"
+        className="relative rounded-xl bg-white px-20 text-center"
       >
-        <button className="absolute right-2 top-2 h-fit w-fit rounded-full bg-red-700 p-1 text-white">
+        <button onClick={closeForm} className="absolute right-2 top-2 h-fit w-fit rounded-full bg-red-700 p-1 text-white">
           <FaTimes className="text-2xl" />
         </button>
         <div className="mt-5 text-3xl font-black">
@@ -78,7 +81,7 @@ const CreateInstitutionWorkflow = ({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               id="stageName"
-              className="h-[50px] w-full resize-none rounded-lg border-2 border-gray-700 p-2 text-xl"
+              className="h-[100px] w-full resize-none rounded-lg border-2 border-gray-700 p-2 text-xl"
             />
           </div>
 
@@ -86,7 +89,7 @@ const CreateInstitutionWorkflow = ({
 
           <button
             onClick={createWorkflow}
-            className="mt-5 rounded-lg bg-gray-700 px-2 py-1 text-xl font-bold text-white"
+            className="mt-5 rounded-lg bg-gray-700 mb-5 px-2 py-1 text-xl font-bold text-white"
           >
             Create Workflow
           </button>

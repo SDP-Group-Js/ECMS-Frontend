@@ -20,8 +20,6 @@ const ViewInvestigationActions = () => {
 
 const InvestigationStage = ({
   active,
-  selectedStage,
-  setSelectedStage,
 }: any) => {
   const [open, setOpen] = useState(active);
   const [openTakeAction, setOpenTakeAction] = useState(false);
