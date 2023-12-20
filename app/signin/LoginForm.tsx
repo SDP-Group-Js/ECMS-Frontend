@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/auth";
+import { auth } from "@/config/firebase";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
