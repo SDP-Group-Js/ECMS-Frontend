@@ -3,29 +3,49 @@ import { useState } from "react";
 import { FaTimes, FaTrash } from "react-icons/fa";
 import SetStages from "./SetStages";
 import Modal from "./Modal";
+import { useAuth } from "@/context/auth";
 
 interface CreateInstitutionWorkflowParamTypes {
-  institutionId: string;
-  institutionName: string;
+  officeId: string;
+  officeName: string;
   closeForm: any;
 }
 
 const CreateInstitutionWorkflow = ({
-  institutionId,
-  institutionName,
+  officeId,
+  officeName,
   closeForm,
 }: CreateInstitutionWorkflowParamTypes) => {
   const [stages, setStages] = useState<string[]>([]);
-  const [workflowName, setWorkflowName] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
-  const createWorkflow = () => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  const { user } = useAuth() as any;
+
+  const createWorkflow = async () => {
     const body = {
-      workflowName: workflowName,
+      name: name,
       stages: stages,
-      institutionId: institutionId,
+      officeId: officeId,
+      description: description,
     };
 
-    console.log(body);
+    if (user) {
+      const request = await fetch(`${API_URL}/api/workflow/instiution`, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Authorization": `Bearer ${user.getIdToken(true)}`
+        }
+      })
+
+      const response = await request.json()
+      alert(response.message)
+    } else {
+      alert("Login Required")
+    }
+    
   };
 
   return (
@@ -38,16 +58,27 @@ const CreateInstitutionWorkflow = ({
           <FaTimes className="text-2xl" />
         </button>
         <div className="mt-5 text-3xl font-black">
-          Create new workflow for {institutionName}
+          Create new workflow for {officeName}
         </div>
         <div className="m-auto mt-10 w-[600px]">
           <div className="">
             <div className="w-full text-left font-bold">Workflow Name</div>
             <input
-              value={workflowName}
-              onChange={(e) => setWorkflowName(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               id="stageName"
               className="h-10 w-full rounded-lg border-2 border-gray-700 px-2 text-xl"
+            />
+          </div>
+          <div className="">
+            <div className="w-full text-left font-bold">
+              Workflow Description
+            </div>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              id="stageName"
+              className="h-[50px] w-full resize-none rounded-lg border-2 border-gray-700 p-2 text-xl"
             />
           </div>
 

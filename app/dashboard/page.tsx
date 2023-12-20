@@ -1,15 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import ViewComplaints from "./components/complaints/ViewComplaints";
 import ViewInvestigations from "./components/investigation/ViewInvestigations";
 import { auth } from "@/config/firebase";
 import { useAuth } from "@/context/auth";
 import { signOut } from "firebase/auth";
+import ViewWorkflows from "./components/workflow/ViewWorkflows";
 
 export default function InstitutionPage() {
   // User object contains institution object that the user as access to.
-  const { user } = useAuth();
+  const { user } = useAuth() as any;
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -26,6 +27,8 @@ export default function InstitutionPage() {
       <div className="flex-1">
         <div>Main Dashboard</div>
         {/* <div>{userOffice.name}</div> */}
+
+        <ViewWorkflows office={user.office} />
 
         {/* <div>
           {userOffice?.institution && (
