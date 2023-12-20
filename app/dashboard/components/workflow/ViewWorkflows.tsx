@@ -6,29 +6,28 @@ import { FaExternalLinkAlt, FaTimes } from "react-icons/fa";
 import Modal from "./Modal";
 import CreateInstitutionWorkflow from "./CreateInstitutionWorkflow";
 
-const ViewInstitutionWorkflows = ({ institution }: any) => {
-  const institutionWorkflows = dumbyData.institutionWorkflows;
+const ViewWorkflows = ({ office }: any) => {
   const [selectedWorkflow, setSelectedWorkflow] = useState<any>(null);
-  const [openWorkflowForm, setOpenWorkflowForm] = useState(false)
+  const [openWorkflowForm, setOpenWorkflowForm] = useState(false);
 
   return (
     <div className="m-auto mt-10 w-5/6 rounded-lg border-2 p-3">
       <div className="text-2xl font-bold">Institutional Workflows</div>
       <button
-          onClick={() => setOpenWorkflowForm(true)}
-          className="rounded bg-gray-600 px-2 py-1 font-bold text-white"
-        >
-          Create New Workflow
-        </button>
-        {openWorkflowForm && (
-          <CreateInstitutionWorkflow
-            institutionId={institution.id}
-            institutionName={institution.name}
-            closeForm={() => setOpenWorkflowForm(false)}
-          />
-        )}
+        onClick={() => setOpenWorkflowForm(true)}
+        className="rounded bg-gray-600 px-2 py-1 font-bold text-white"
+      >
+        Create New Workflow
+      </button>
+      {openWorkflowForm && (
+        <CreateInstitutionWorkflow
+          officeId={office.id}
+          officeName={office.name}
+          closeForm={() => setOpenWorkflowForm(false)}
+        />
+      )}
       <div className="flex flex-wrap">
-        {institutionWorkflows.map((workflow) => (
+        {office.workflows.map((workflow: any) => (
           <div className="w-1/3 py-2 pl-2 text-left">
             <button
               onClick={() => setSelectedWorkflow(workflow)}
@@ -75,4 +74,4 @@ const ViewInstitutionWorkflows = ({ institution }: any) => {
   );
 };
 
-export default ViewInstitutionWorkflows;
+export default ViewWorkflows;
