@@ -15,22 +15,34 @@ export const AuthProvider = ({ children }: any) => {
 
   const API_URL = "http://localhost:8080"
 
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user: any) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        console.log("Hi")
+        const uid = user.uid;
+  
+        // Need to fetch user details by providing uid
+        const token = await user.getIdToken(true)
+        const response = await fetch(`${API_URL}/api/user/getDetails`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+        const userDetails = await response.json()
+        user.details = userDetails
+  
+        setUser(user);
+        setLoading(false)
+      } else {
+        setUser(null);
+        setLoading(false)
+      }
+    });
 
-      // Need to fetch user details by providing uid
-      // const userDetails = await fetch(`${API_URL}/user/${uid}`)
-
-      setUser(user);
-      setLoading(false)
-    } else {
-      setUser(null);
-      setLoading(false)
-    }
-  });
+    return unsubscribe
+  }, [])
 
   const AuthValues = {
     user: user,

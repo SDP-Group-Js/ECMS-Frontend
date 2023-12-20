@@ -10,6 +10,8 @@ const ViewWorkflows = ({ office }: any) => {
   const [selectedWorkflow, setSelectedWorkflow] = useState<any>(null);
   const [openWorkflowForm, setOpenWorkflowForm] = useState(false);
 
+  console.log(office)
+
   return (
     <div className="m-auto mt-10 w-5/6 rounded-lg border-2 p-3">
       <div className="text-2xl font-bold">Institutional Workflows</div>
