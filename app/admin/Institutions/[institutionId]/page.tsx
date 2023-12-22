@@ -3,7 +3,7 @@
 import React from "react";
 import Sidebar from "@/components/shared/Sidebar";
 import Header from "@/components/shared/Header";
-import "@/app/components/shared/HeaderStyles.css";
+//import "@/app/components/shared/HeaderStyles.css";
 import DashboardContentPanel from "@/components/shared/DashboardContentPanel";
 
 export default function Home() {

@@ -1,13 +1,20 @@
-'use client'
- 
-import React from 'react';
-import Link from 'next/link';
-import { GiElephant } from 'react-icons/gi';
-import { FiLogOut } from 'react-icons/fi';
-import { DASHBOARD_SIDEBAR_LINKS } from '../lib/consts/navigation';
-import classNames from 'classnames';
+"use client";
 
-const linkClasses = 'flex items-center gap-4 border font-light px-5 py-2 hover:bg-neutral-200 hover:no-underline active:bg-neutral-200 rounded-sm text-base text-stone-900 pt';
+import React from "react";
+import Link from "next/link";
+import { GiElephant } from "react-icons/gi";
+import { FiLogOut } from "react-icons/fi";
+import { DASHBOARD_SIDEBAR_LINKS } from "../lib/consts/navigation";
+import classNames from "classnames";
+import { signOut } from "firebase/auth";
+import { auth } from "@/config/firebase";
+
+const linkClasses =
+  "flex items-center gap-4 border font-light px-5 py-2 hover:bg-neutral-200 hover:no-underline active:bg-neutral-200 rounded-sm text-base text-stone-900 pt";
+
+interface sideBarProps {
+  user: any;
+}
 
 interface SidebarItem {
   path: string;
@@ -22,44 +29,60 @@ interface SidebarLinkProps {
 const SidebarLink: React.FC<SidebarLinkProps> = ({ item }) => {
   return (
     <Link href={item.path} passHref>
-      <span className={classNames('text-xl', linkClasses)}>
-        <span className='text-xl'>{item.icon}</span>
+      <span className={classNames("text-xl", linkClasses)}>
+        <span className="text-xl">{item.icon}</span>
         {item.label}
       </span>
     </Link>
   );
 };
 
-const Sidebarn: React.FC = () => {
-  // Dummy data 
+const Sidebarn = ({ user }: sideBarProps) => {
+  // Dummy data
   const userData = {
-    name: 'John Doe',
+    name: user.name,
+    role: user.userRole,
+    isAdmin: false,
+  };
+  if (user.userRole == "SystemAdmin" || user.userRole == "OfficeAdmin") {
+    userData.isAdmin = true;
+  }
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      window.location.pathname = "/";
+    } catch (error) {
+      console.log("Logout error: " + error);
+    }
   };
 
   return (
-    <div className='bg-neutral-300 w-60 p-3 flex flex-col text-brown'>
-      <div className='flex items-center gap-3 px-2 py-2'>
+    <div className="text-brown flex w-60 flex-col bg-neutral-300 p-3">
+      <div className="flex items-center gap-3 px-2 py-2">
         <GiElephant fontSize={26} />
-        <b><span className='text-stone-900 text-lg h'>Wildlife Institution</span></b>
+        <b>
+          <span className="h text-lg text-stone-900">Wildlife Institution</span>
+        </b>
       </div>
 
-      <div className='flex pr'>
-        Welcome back, {userData.name}
-      </div>
+      <div className="pr flex">Welcome back, {userData.name}</div>
 
-      <div className='flex-1 pt flex-col text-stone-900'>
+      <div className="pt flex-1 flex-col text-stone-900">
         {DASHBOARD_SIDEBAR_LINKS.map((item) => (
           <SidebarLink key={item.key} item={item} />
         ))}
       </div>
 
       <div>
-        <div className={classNames('pi', linkClasses)}>
-          <span className='text-xl'>
-            <FiLogOut />
-          </span>
-          Logout
-        </div>
+        <button onClick={handleLogout}>
+          <div className={classNames("pi", linkClasses)}>
+            <span className="text-xl">
+              <FiLogOut />
+            </span>
+            Logout
+          </div>
+        </button>
       </div>
     </div>
   );

@@ -39,7 +39,7 @@ const InvestigationCard = ({
               investigationStatus === "NotAssigned" ? "hidden" : "block"
             }
           >
-            {investigationOfficeType}: {investigationOfficeName}
+            {investigationOfficeType} {investigationOfficeName}
           </div>
           <div className="w-30 flex items-center justify-center">
             <InvestigationStatusTag

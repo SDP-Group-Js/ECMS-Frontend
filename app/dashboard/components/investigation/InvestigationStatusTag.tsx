@@ -1,7 +1,7 @@
 import React from "react";
 
 type InvestigationStatusTagProps = {
-  investigationId: number;
+  id: number;
   investigationStatus: string;
   onClick: () => void;
 };
@@ -11,55 +11,68 @@ type InvestigationStatusButtonProps = {
   onClick: () => void;
 };
 
+type ComplaintStatusButtonProps = {
+  complaintId: number;
+  onClick: () => void;
+};
+
 const InvestigationStatusTag = ({
-  investigationId,
+  id,
   investigationStatus,
   onClick,
 }: InvestigationStatusTagProps) => {
   return {
+    Processing: (
+      <ComplaintProcessingButton complaintId={id} onClick={onClick} />
+    ),
     NotAssigned: (
-      <InvestigationNotAllocatedButton
-        investigationId={investigationId}
-        onClick={onClick}
-      />
+      <InvestigationNotAllocatedButton investigationId={id} onClick={onClick} />
     ),
     Ongoing: (
-      <InvestigationOngoingButton
-        investigationId={investigationId}
-        onClick={onClick}
-      />
+      <InvestigationOngoingButton investigationId={id} onClick={onClick} />
     ),
     Completed: (
-      <InvestigationCompletedButton
-        investigationId={investigationId}
-        onClick={onClick}
-      />
+      <InvestigationCompletedButton investigationId={id} onClick={onClick} />
     ),
     "Allocated To Division": (
       <InvestigationAllocatedToDivisionButton
-        investigationId={investigationId}
+        investigationId={id}
         onClick={onClick}
       />
     ),
     "Allocated To Branch": (
       <InvestigationAllocatedToBranchButton
-        investigationId={investigationId}
+        investigationId={id}
         onClick={onClick}
       />
     ),
     "Allocated To Office": (
       <InvestigationAllocatedToOfficeButton
-        investigationId={investigationId}
+        investigationId={id}
         onClick={onClick}
       />
     ),
     "Involved Parties Added": (
       <InvestigationInvolvedPartiesAddedButton
-        investigationId={investigationId}
+        investigationId={id}
         onClick={onClick}
       />
     ),
   }[investigationStatus];
+};
+
+const ComplaintProcessingButton = ({
+  complaintId,
+  onClick,
+}: ComplaintStatusButtonProps) => {
+  return (
+    <button
+      className="flex w-40 items-center justify-center rounded-lg border-2 border-gray-500 bg-gray-500 px-2 py-1 font-bold text-white hover:border-gray-400 hover:bg-white hover:text-gray-400"
+      onClick={onClick}
+    >
+      Processing
+    </button>
+  );
 };
 
 const InvestigationNotAllocatedButton = ({

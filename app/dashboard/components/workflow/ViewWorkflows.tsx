@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 
-import dumbyData from "../../../../tests/dumbyData.json";
 import { FaExternalLinkAlt, FaTimes } from "react-icons/fa";
 import Modal from "./Modal";
 import CreateInstitutionWorkflow from "./CreateInstitutionWorkflow";
@@ -10,14 +9,14 @@ const ViewWorkflows = ({ office }: any) => {
   const [selectedWorkflow, setSelectedWorkflow] = useState<any>(null);
   const [openWorkflowForm, setOpenWorkflowForm] = useState(false);
 
-  console.log(office)
+  console.log(office);
 
   return (
-    <div className="m-auto mt-10 w-5/6 rounded-lg border-2 p-3">
+    <div className="mx-2 mb-5 mt-5 w-full rounded-lg border-2 p-3">
       <div className="text-2xl font-bold">Institutional Workflows</div>
       <button
         onClick={() => setOpenWorkflowForm(true)}
-        className="rounded bg-gray-600 px-2 py-1 font-bold text-white"
+        className="my-4 rounded bg-gray-600 px-2 py-1 font-bold text-white"
       >
         Create New Workflow
       </button>
@@ -48,7 +47,7 @@ const ViewWorkflows = ({ office }: any) => {
         <Modal onClick={() => setSelectedWorkflow(null)}>
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative rounded-xl bg-white pb-5 pl-5 pr-24 text-center"
+            className="relative rounded-xl bg-white pb-5 pr-24 text-center"
           >
             <button
               onClick={() => setSelectedWorkflow(null)}

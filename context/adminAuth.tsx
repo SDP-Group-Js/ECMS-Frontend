@@ -37,6 +37,11 @@ export const AuthProvider = ({ children }: any) => {
         user.details = userDetails;
         const userRole = userDetails.userRole;
 
+        if (userRole !== "SystemAdmin" && userRole !== "OfficeAdmin") {
+          window.location.pathname = "/dashboard";
+          alert("Admin privileges required.");
+        }
+
         setUser(user);
         setLoading(false);
       } else {

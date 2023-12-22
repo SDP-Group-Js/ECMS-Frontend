@@ -1,30 +1,46 @@
-import React from 'react'
-import { GiElephant } from "react-icons/gi"
+import React from "react";
+import { GiElephant } from "react-icons/gi";
 
-export default function Header() {
+type HeaderProps = {
+  officeType: string;
+  office: any;
+};
+
+enum OfficeType {
+  Institution = "Institution",
+  Division = "Division",
+  Branch = "Branch",
+  BeatOffice = "Beat Office",
+}
+
+export default function Header({ officeType, office }: HeaderProps) {
   return (
-    <div className='h-20 px-7 flex justify-between items-center'>
-        
-        <div className='flex justify-between items-center gap-2 tg'>
-            <GiElephant fontSize={40}/>
-            <span className='text-stone-900 text-lg ts'>WildLife</span>
-        </div>
+    <div className="flex h-20 items-center justify-between px-7">
+      <div className="tg flex items-center justify-between gap-2">
+        <GiElephant fontSize={40} />
+        <span className="ts text-lg text-stone-900">{office.name}</span>
+      </div>
 
-        <div className='px-14 flex justify-between pd h-16 items-center'>
-            <div className='flex justify-between'>
-                <div className='dt px-20'>Divisions</div>
-                <div className='df px-10'>12</div>
-            </div>
-            <div className='flex justify-between '>
-                <div className='dt px-20'>Offices</div>
-                <div className='dp px-10'>32</div>
-            </div>
+      {officeType == OfficeType.Institution && (
+        <div className="pd flex h-16 items-center justify-between px-14">
+          <span className="text-xl font-bold">Office Type: Institution</span>
         </div>
-        
-
+      )}
+      {officeType == OfficeType.Division && (
+        <div className="pd flex h-16 items-center justify-between px-14">
+          <span className="text-xl font-bold">Office Type: Division</span>
+        </div>
+      )}
+      {officeType == OfficeType.Branch && (
+        <div className="pd flex h-16 items-center justify-between px-14">
+          <span className="text-xl font-bold">Office Type: Branch</span>
+        </div>
+      )}
+      {officeType == OfficeType.BeatOffice && (
+        <div className="pd flex h-16 items-center justify-between px-14">
+          <span className="text-xl font-bold">Office Type: Beat Office</span>
+        </div>
+      )}
     </div>
-   
-
-
-  )
+  );
 }

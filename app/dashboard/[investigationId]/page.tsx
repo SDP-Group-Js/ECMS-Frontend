@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import SetInvestigationWorkflow from "../components/workflow/SetInvestigationWorkflow";
 import dumbyData from "../../../tests/dumbyData.json";
-import Sidebar from "@/components/shared/Sidebarn";
+import Sidebar from "@/components/shared/Sidebar";
 import Header from "@/components/shared/Header";
 import InvestigationStatusTag from "../components/investigation/InvestigationStatusTag";
 import ViewRelationButton from "../components/investigation/ViewRelationButton";

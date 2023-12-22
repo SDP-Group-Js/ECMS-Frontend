@@ -4,7 +4,19 @@ import React from "react";
 import DashboardContentPanelHeader from "./DashboardContentPanelHeader";
 import DashboardContentPanelBody from "./DashboardContentPanelBody";
 
-const DashboardContentPanel = () => {
+interface DashboardContentPanelProps {
+  assignedInvestigations: any;
+  involvedInvestigations: any;
+  office: any;
+  complaints: any;
+}
+
+const DashboardContentPanel = ({
+  assignedInvestigations,
+  involvedInvestigations,
+  office,
+  complaints,
+}: DashboardContentPanelProps) => {
   const [activeTab, setActiveTab] = React.useState("complaints");
 
   const handleComplaintsClick = () => {
@@ -27,7 +39,13 @@ const DashboardContentPanel = () => {
         onWorkflowsClick={handleWorkflowsClick}
         activeTab={activeTab}
       />
-      <DashboardContentPanelBody activeTab={activeTab} />
+      <DashboardContentPanelBody
+        activeTab={activeTab}
+        assignedInvestigations={assignedInvestigations}
+        involvedInvestigations={involvedInvestigations}
+        office={office}
+        complaints={complaints}
+      />
     </div>
   );
 };

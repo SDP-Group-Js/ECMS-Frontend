@@ -13,27 +13,24 @@ enum OfficeType {
   BeatOffice = "Beat Office",
 }
 
-const ViewInvestigations = ({ office }: any) => {
+interface ViewInvestigationsProps {
+  assignedInvestigations: any;
+  involvedInvestigations: any;
+}
 
-  useEffect(() => {
-    const checkOffice = () => {
-      if (office.institutions) {
-        // make a request to get investigations that are assigned to their children
-        
-      }
-    }
-  }, [office])
-
+const ViewInvestigations = ({
+  assignedInvestigations,
+  involvedInvestigations,
+}: ViewInvestigationsProps) => {
   return (
     <div>
-      View Investigations
-      {/* <div>
-        <div>Main Investigations</div>
-        {office.assignedInvestigation.map((investigation, index) => (
+      <div>
+        <div className="my-2 text-xl font-bold">Main Investigations</div>
+        {assignedInvestigations.map((investigation: any, index: number) => (
           <InvestigationCard
-            investigationId={1}
-            investigationStatus={Status.NotAssigned}
-            investigationOfficeId={null}
+            investigationId={investigation.id}
+            investigationStatus={investigation.status}
+            investigationOfficeId={investigation.officeId}
             investigationOfficeType={null}
             investigationOfficeName={null}
             investigationUpdateDate={new Date()}
@@ -41,18 +38,20 @@ const ViewInvestigations = ({ office }: any) => {
         ))}
       </div>
       <div>
-        <div>Involved Investigations</div>
-        {office.involvedInvestigations.map((investigation, index) => (
+        <div className="mb-2 mt-6 text-xl font-bold">
+          Involved Investigations
+        </div>
+        {involvedInvestigations.map((investigation: any, index: number) => (
           <InvestigationCard
-            investigationId={1}
-            investigationStatus={Status.NotAssigned}
-            investigationOfficeId={null}
+            investigationId={investigation.id}
+            investigationStatus={investigation.status}
+            investigationOfficeId={investigation.officeId}
             investigationOfficeType={null}
             investigationOfficeName={null}
             investigationUpdateDate={new Date()}
           />
         ))}
-      </div> */}
+      </div>
     </div>
   );
 };
