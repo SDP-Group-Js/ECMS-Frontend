@@ -4,13 +4,13 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdOutlineOpenInNew } from "react-icons/md";
 
 type props = {
-  userId: number;
+  userId: string;
   userName: string | null;
-  userType: string | null;
-  userOfficeName: string | null;
+  userNIC: string | null;
+  userPhone: string | null;
 };
 
-const UserCard = ({ userId, userName, userType, userOfficeName }: props) => {
+const UserCard = ({ userId, userName, userNIC, userPhone }: props) => {
   const [modalVisible, setEditModalVisible] = useState(false);
 
   const handleModalCloseButtonClick = () => {
@@ -25,8 +25,8 @@ const UserCard = ({ userId, userName, userType, userOfficeName }: props) => {
       <div className="my-2 flex items-center justify-start rounded-xl border-2 border-gray-400 px-4 py-[0.75rem]">
         <div className="w-[25rem]">{userId}</div>
         <div className="w-[15rem]">{userName}</div>
-        <div className="w-[10rem]">{userType}</div>
-        <div className="w-[25rem]">{userOfficeName}</div>
+        <div className="w-[10rem]">{userNIC}</div>
+        <div className="w-[25rem]">{userPhone}</div>
         <div>
           <button
             onClick={handleEditButtonClick}
@@ -38,8 +38,8 @@ const UserCard = ({ userId, userName, userType, userOfficeName }: props) => {
         <EditUserModal
           isVisible={modalVisible}
           userName={userName}
-          userOfficeName={userOfficeName}
-          userType={userType}
+          userOfficeName={userNIC}
+          userPhone={userPhone}
           handleModalCloseButtonClick={handleModalCloseButtonClick}
         />
       </div>

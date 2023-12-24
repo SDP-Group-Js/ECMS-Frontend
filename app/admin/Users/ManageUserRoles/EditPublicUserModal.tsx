@@ -4,7 +4,7 @@ import { IoCloseSharp } from "react-icons/io5";
 type EditUserModalProps = {
   isVisible: boolean;
   userName: string | null;
-  userOfficeName: string | null;
+  userNIC: string | null;
   userPhone: string | null;
   handleModalCloseButtonClick: () => void;
 };
@@ -13,7 +13,7 @@ const EditUserModal = ({
   isVisible,
   handleModalCloseButtonClick,
   userName,
-  userOfficeName,
+  userNIC,
   userPhone,
 }: EditUserModalProps) => {
   if (!isVisible) return null;
@@ -46,45 +46,31 @@ const EditUserModal = ({
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>User Name:&nbsp;</label>
             <input
-              type="text"
               value={userName ?? ""}
+              type="text"
+              placeholder="Enter User Name"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
             />
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>User Role</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              {userPhone === null ? (
-                ""
-              ) : (
-                <option value={userPhone} selected>
-                  [Selected Role]
-                </option>
-              )}
-              <option value="[Id of the user]">System Admin</option>
-              <option value="[Id of the user]">Office Admin</option>
-              <option value="[Id of the user]">Complaint Handler</option>
-              <option value="[Id of the user]">Investigation Handler</option>
-              <option value="[Id of the user]">Viewer</option>
-              <option value="[Id of the user]">Field Officer</option>
-            </select>
+            <label>User NIC:&nbsp;</label>
+            <input
+              value={userNIC ?? ""}
+              type="text"
+              placeholder="Enter National Identity Card No."
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+            />
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Office</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              {userOfficeName === null ? (
-                ""
-              ) : (
-                <option value={userOfficeName} selected>
-                  [Selected Type]
-                </option>
-              )}
-              <option value="[Id of the user]">[Type]</option>
-              <option value="[Id of the user]">[Type]</option>
-              <option value="[Id of the user]">[Type]</option>
-            </select>
+            <label>User Phone:&nbsp;</label>
+            <input
+              value={userPhone ?? ""}
+              type="text"
+              placeholder="Enter Phone Number"
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+            />
           </div>
         </div>
         <div

@@ -1,16 +1,13 @@
-import React from 'react'
-import { GiElephant } from "react-icons/gi"
+import React from "react";
+import { GiElephant } from "react-icons/gi";
 
 export default function UserHeader() {
   return (
-    <div className='h-20 px-7 flex justify-between items-center'>
-        
-        <div className='flex justify-between items-center gap-2 tg'>
-            <GiElephant fontSize={40}/>
-            <span className='text-stone-900 text-lg ts'>View Users</span>
-        </div>
-
+    <div className="flex h-20 items-center justify-between px-7">
+      <div className="tg flex items-center justify-between gap-2">
+        <GiElephant fontSize={40} />
+        <span className="ts text-lg text-stone-900">Manage Users</span>
+      </div>
     </div>
-
-  )
+  );
 }

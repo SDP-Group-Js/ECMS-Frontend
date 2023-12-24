@@ -6,18 +6,15 @@ type AddUserModalProps = {
   textToDisplay: string;
   onClick: () => void;
   handleModalCloseButtonClick: () => void;
-
 };
 
 const AddUserModal = ({
   onClick,
   isVisible,
   handleModalCloseButtonClick,
-
- 
 }: AddUserModalProps) => {
   if (!isVisible) return null;
-  
+
   const handleAddButtonClick = () => {
     console.log("User Added");
   };
@@ -54,9 +51,9 @@ const AddUserModal = ({
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>User Role</label>
             <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-                <option value="" selected>
-                  [Selected Type]
-                </option>
+              <option value="" selected>
+                [Selected Type]
+              </option>
               <option value="">System Admin</option>
               <option value="">Office Admin</option>
               <option value="">Complaint Handler</option>
@@ -69,15 +66,24 @@ const AddUserModal = ({
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>Office</label>
             <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-                <option value="" selected>
-                  [Selected Type]
-                </option>
+              <option value="" selected>
+                [Selected Type]
+              </option>
               <option value="">[Type]</option>
               <option value="">[Type]</option>
               <option value="">[Type]</option>
             </select>
           </div>
-         </div>
+
+          <div className="mx-4 my-4 flex items-center justify-center">
+            <label>Password:&nbsp;</label>
+            <input
+              type="text"
+              placeholder="Enter user's Password"
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+            />
+          </div>
+        </div>
         <div
           id="AddUserModalFooter"
           className="mx-1 my-1 flex items-center justify-center md:mx-3 lg:mx-5"

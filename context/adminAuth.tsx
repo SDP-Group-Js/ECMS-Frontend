@@ -10,6 +10,8 @@ export const AuthContext = createContext({
   divisions: [],
   branches: [],
   beatOffices: [],
+  users: [],
+  publicUsers: [],
   loading: false,
 });
 
@@ -19,6 +21,8 @@ export const AuthProvider = ({ children }: any) => {
   const [divisions, setDivisions] = useState([]);
   const [branches, setBranches] = useState([]);
   const [beatOffices, setBeatOffices] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [publicUsers, setPublicUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const API_URL = "http://localhost:8080";
@@ -70,10 +74,26 @@ export const AuthProvider = ({ children }: any) => {
             (office: any) => office.BeatOffice != null,
           );
 
+          const users = await fetch(`${API_URL}/api/user/Users`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const userData = await users.json();
+
+          const publicUsers = await fetch(`${API_URL}/api/user/publicUsers`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const publicUserData = await publicUsers.json();
+
           setInstitutions(institutionOffices);
           setDivisions(divisionOffices);
           setBranches(branchOffices);
           setBeatOffices(beatOfficeOffices);
+          setUsers(userData);
+          setPublicUsers(publicUserData);
         }
 
         setUser(user);
@@ -85,6 +105,8 @@ export const AuthProvider = ({ children }: any) => {
         setDivisions([]);
         setBranches([]);
         setBeatOffices([]);
+        setUsers([]);
+        setPublicUsers([]);
       }
     });
 
@@ -98,6 +120,8 @@ export const AuthProvider = ({ children }: any) => {
     divisions: divisions,
     branches: branches,
     beatOffices: beatOffices,
+    users: users,
+    publicUsers: publicUsers,
   };
 
   return (

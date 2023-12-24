@@ -8,6 +8,8 @@ import { DASHBOARD_SIDEBAR_LINKS } from "../lib/consts/navigation";
 import classNames from "classnames";
 import { signOut } from "firebase/auth";
 import { auth } from "@/config/firebase";
+import { FaUsers, FaFileSignature } from "react-icons/fa";
+import { MdOutlineLocationCity } from "react-icons/md";
 
 const linkClasses =
   "flex items-center gap-4 border font-light px-5 py-2 hover:bg-neutral-200 hover:no-underline active:bg-neutral-200 rounded-sm text-base text-stone-900 pt";
@@ -72,9 +74,33 @@ const Sidebarn = ({ user }: sideBarProps) => {
         {/* {DASHBOARD_SIDEBAR_LINKS.map((item) => (
           <SidebarLink key={item.key} item={item} />
         ))} */}
-        <div className="border-2 border-gray-700 p-2 text-xl flex justify-start items-center rounded-md my-2 hover:bg-white hover:text-black"><Link href={"/dashboard"}>Complaints</Link></div>
-        <div className="border-2 border-gray-700 p-2 text-xl flex justify-start items-center rounded-md my-2 hover:bg-white hover:text-black"><Link href={"/admin/Institutions"}>Institutions</Link></div>
-        <div className="border-2 border-gray-700 p-2 text-xl flex justify-start items-center rounded-md my-2 hover:bg-white hover:text-black"><Link href={"/admin/Users"}>Users</Link></div>
+        <Link href={"/dashboard"}>
+          <div className="my-2 flex items-center justify-start rounded-md border-2 border-gray-700 p-2 text-xl hover:bg-white hover:text-black">
+            <span>
+              <FaFileSignature />
+            </span>
+            &nbsp;&nbsp;
+            <span>Complaints</span>
+          </div>
+        </Link>
+        <Link href={"/admin/Institutions"}>
+          <div className="my-2 flex items-center justify-start rounded-md border-2 border-gray-700 p-2 text-xl hover:bg-white hover:text-black">
+            <span>
+              <MdOutlineLocationCity />
+            </span>
+            &nbsp;&nbsp;
+            <span>Institutions</span>
+          </div>
+        </Link>
+        <Link href={"/admin/Users"}>
+          <div className="my-2 flex items-center justify-start rounded-md border-2 border-gray-700 p-2 text-xl hover:bg-white hover:text-black">
+            <span>
+              <FaUsers />
+            </span>
+            &nbsp;&nbsp;
+            <span>Users</span>
+          </div>
+        </Link>
       </div>
 
       <div>

@@ -1,5 +1,5 @@
 import React from "react";
-import UserCard from "./UserCard";
+import PublicUserCard from "./PublicUserCard";
 
 type props = {
   users: any;
@@ -10,11 +10,11 @@ const UserTable = ({ users }: props) => {
     <div>
       {users.map((user: any) => {
         return (
-          <UserCard
+          <PublicUserCard
             userId={user.id}
             userName={user.name}
-            userType={user.userRole}
-            userOfficeName={user.office.name}
+            userNIC={user.nic}
+            userPhone={user.phone}
           />
         );
       })}

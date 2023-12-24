@@ -6,18 +6,18 @@ import LoginForm from "@/app/signin/LoginForm";
 
 export const AuthContext = createContext({
   user: null,
-  loading: false,
   complaints: [],
   institutions: [],
-  publicUsers: [null],
+  publicUsers: [],
+  loading: false,
 });
 
 export const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
   const [complaints, setComplaints] = useState([]);
   const [institutions, setInstitutions] = useState([]);
   const [publicUsers, setPublicUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const API_URL = "http://localhost:8080";
 
@@ -29,9 +29,9 @@ export const AuthProvider = ({ children }: any) => {
         console.log("Hi");
         const uid = user.uid;
 
-        //Need to fetch user details by providing uid
+        // Need to fetch user details by providing uid
         const token = await user.getIdToken(true);
-        const response = await fetch(
+        const userResponse = await fetch(
           `${API_URL}/api/user/users/getDetails/${uid}`,
           {
             headers: {
@@ -39,11 +39,16 @@ export const AuthProvider = ({ children }: any) => {
             },
           },
         );
-        const userDetails = await response.json();
-        console.log(userDetails);
+        const userDetails = await userResponse.json();
         user.details = userDetails;
         const userRole = userDetails.userRole;
 
+        //if (userRole !== "ComplaintHandler") {
+        //window.location.pathname = "/dashboard";
+        //alert("Only complaint handlers are allowed to allocate complaints");
+        //}
+
+        //if (userRole == "ComplaintHandler") {
         const complaints = await fetch(
           `${API_URL}/api/complaint/unallocatedComplaints`,
           {
@@ -74,15 +79,16 @@ export const AuthProvider = ({ children }: any) => {
         setComplaints(complaintData);
         setInstitutions(institutionData);
         setPublicUsers(publicUserData);
+        //}
 
         setUser(user);
         setLoading(false);
       } else {
+        setUser(null);
+        setLoading(false);
         setComplaints([]);
         setInstitutions([]);
         setPublicUsers([]);
-        setUser(null);
-        setLoading(false);
       }
     });
 
