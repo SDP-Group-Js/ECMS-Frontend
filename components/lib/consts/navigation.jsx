@@ -8,19 +8,19 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   {
     key: "complaints",
     label: "Complaints",
-    path: "dashboard",
+    path: "@/app/dashboard",
     icon: <FaFileSignature />,
   },
   {
     key: "institutions",
     label: "Institutions",
-    path: "admin/Institutions",
+    path: "@/app/admin/Institutions",
     icon: <MdOutlineLocationCity />,
   },
   {
     key: "users",
     label: "Users",
-    path: "admin/Users",
+    path: "@/app/admin/Users",
     icon: <FaUsers />,
   },
 ];

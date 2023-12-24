@@ -7,6 +7,8 @@ import "./index.css";
 import Sidebar from "@/components/shared/Sidebar";
 import { auth } from "@/config/firebase";
 import { useAuth } from "@/context/adminAuth";
+import ManageUser from "./ManageUserRoles/Manage-User";
+
 
 export default function Home() {
   const { user } = useAuth() as any;
@@ -17,7 +19,7 @@ export default function Home() {
       <div className="flex-1">
         <UserHeader />
         <div className="p-4">
-          <Users />
+          <ManageUser />
         </div>
       </div>
     </div>

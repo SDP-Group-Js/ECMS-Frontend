@@ -69,9 +69,12 @@ const Sidebarn = ({ user }: sideBarProps) => {
       <div className="pr flex">Welcome back, {userData.name}</div>
 
       <div className="pt flex-1 flex-col text-stone-900">
-        {DASHBOARD_SIDEBAR_LINKS.map((item) => (
+        {/* {DASHBOARD_SIDEBAR_LINKS.map((item) => (
           <SidebarLink key={item.key} item={item} />
-        ))}
+        ))} */}
+        <div className="border-2 border-gray-700 p-2 text-xl flex justify-start items-center rounded-md my-2 hover:bg-white hover:text-black"><Link href={"/dashboard"}>Complaints</Link></div>
+        <div className="border-2 border-gray-700 p-2 text-xl flex justify-start items-center rounded-md my-2 hover:bg-white hover:text-black"><Link href={"/admin/Institutions"}>Institutions</Link></div>
+        <div className="border-2 border-gray-700 p-2 text-xl flex justify-start items-center rounded-md my-2 hover:bg-white hover:text-black"><Link href={"/admin/Users"}>Users</Link></div>
       </div>
 
       <div>
