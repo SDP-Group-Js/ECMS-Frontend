@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import AddOfficeModal from "./AddOfficeModal";
-import OfficesTable from "./OfficesTable";
+import AddBranchModal from "./AddBranchModal";
+import BranchesTable from "./BranchesTable";
 
 import { MdGroupAdd } from "react-icons/md";
 
 type props = {
-  beatOffices: any;
+  branches: any;
 };
 
-export default function ManOffices({ beatOffices }: props) {
+export default function ManOffices({ branches }: props) {
   const [addModalVisible, setAddModalVisible] = useState(false);
 
   const handleModalCloseButtonClick = () => {
@@ -31,23 +31,23 @@ export default function ManOffices({ beatOffices }: props) {
                 onClick={handleAddButtonClick}
                 className=" w-50 h-15 flex items-center justify-center rounded-lg border-2 border-gray-700 bg-gray-700 px-2 py-1 font-bold text-white hover:border-gray-500 hover:bg-white hover:text-gray-500"
               >
-                <MdGroupAdd className="h-8 w-6" /> Add Beat Office
+                <MdGroupAdd className="h-8 w-6" /> Add Branch
               </button>
-              <AddOfficeModal
+              <AddBranchModal
                 isVisible={addModalVisible}
                 handleModalCloseButtonClick={handleModalCloseButtonClick}
-                textToDisplay="Add Office"
+                textToDisplay="Add Branch"
                 onClick={handleAddButtonClick}
               />
             </div>
             <div className="flex w-full items-center justify-end">
-              <label className="w-90">Number Of Beat Offices:&nbsp;</label>
-              <span className="w-90">{beatOffices.length}</span>
+              <label className="w-90">Number Of Branches:&nbsp; </label>
+              <span className="w-90">{branches.length}</span>
             </div>
           </div>
           <br></br>
 
-          <OfficesTable beatOffices={beatOffices} />
+          <BranchesTable branches={branches} />
         </div>
       </div>
     </div>

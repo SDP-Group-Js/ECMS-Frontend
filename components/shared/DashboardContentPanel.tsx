@@ -9,6 +9,8 @@ interface DashboardContentPanelProps {
   involvedInvestigations: any;
   office: any;
   complaints: any;
+  institutionName: string;
+  childOffices: any;
 }
 
 const DashboardContentPanel = ({
@@ -16,6 +18,8 @@ const DashboardContentPanel = ({
   involvedInvestigations,
   office,
   complaints,
+  institutionName,
+  childOffices,
 }: DashboardContentPanelProps) => {
   const [activeTab, setActiveTab] = React.useState("complaints");
 
@@ -45,6 +49,8 @@ const DashboardContentPanel = ({
         involvedInvestigations={involvedInvestigations}
         office={office}
         complaints={complaints}
+        institutionName={institutionName}
+        childOffices={childOffices}
       />
     </div>
   );

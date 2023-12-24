@@ -57,14 +57,14 @@ const ViewWorkflows = ({ office }: any) => {
             </button>
 
             <div className="my-5 text-2xl font-bold">
-              {selectedWorkflow.name} Workflow
+              {selectedWorkflow.name}
             </div>
             <div className="">
               {selectedWorkflow?.stages &&
                 selectedWorkflow.stages.map((stage: any, index: number) => (
                   <div className="flex gap-2 rounded-lg px-2 py-2 text-left text-xl font-medium">
                     <div>{index + 1}</div>
-                    <div>{stage.name}</div>
+                    <div>{stage}</div>
                   </div>
                 ))}
             </div>

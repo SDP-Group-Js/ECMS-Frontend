@@ -16,11 +16,15 @@ enum OfficeType {
 interface ViewInvestigationsProps {
   assignedInvestigations: any;
   involvedInvestigations: any;
+  office: any;
+  childOffices: any;
 }
 
 const ViewInvestigations = ({
   assignedInvestigations,
   involvedInvestigations,
+  office,
+  childOffices,
 }: ViewInvestigationsProps) => {
   return (
     <div>
@@ -30,10 +34,11 @@ const ViewInvestigations = ({
           <InvestigationCard
             investigationId={investigation.id}
             investigationStatus={investigation.status}
-            investigationOfficeId={investigation.officeId}
-            investigationOfficeType={null}
-            investigationOfficeName={null}
-            investigationUpdateDate={new Date()}
+            investigationComplaintId={investigation.complaintId}
+            investigationOffice={investigation.office}
+            investigationWorkflow={investigation.workflow}
+            officeWorkflows={office.workflows}
+            childOffices={childOffices}
           />
         ))}
       </div>
@@ -45,10 +50,11 @@ const ViewInvestigations = ({
           <InvestigationCard
             investigationId={investigation.id}
             investigationStatus={investigation.status}
-            investigationOfficeId={investigation.officeId}
-            investigationOfficeType={null}
-            investigationOfficeName={null}
-            investigationUpdateDate={new Date()}
+            investigationComplaintId={investigation.complaintId}
+            investigationOffice={office}
+            investigationWorkflow={investigation.workflow}
+            officeWorkflows={office.workflows}
+            childOffices={childOffices}
           />
         ))}
       </div>

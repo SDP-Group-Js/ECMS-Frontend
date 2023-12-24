@@ -1,40 +1,23 @@
 import React from "react";
 import InstitutionCard from "./InstitutionCard";
 
+type props = {
+  institutions: any;
+};
 
-const InstitutionTable = () => {
+const InstitutionTable = ({ institutions }: props) => {
   return (
     <div>
-      <InstitutionCard
-        institutionId={1}
-        institutionName="institution Name"
-        institutionType="institution Type" //The Type
-        institutionDescription="Description"
-      />
-      <InstitutionCard
-        institutionId={1}
-        institutionName="institution Name"
-        institutionType="institution Type"
-        institutionDescription="Description"
-      />
-      <InstitutionCard
-        institutionId={1}
-        institutionName="institution Name"
-        institutionType="institution Type"
-        institutionDescription="Description"
-      />
-      <InstitutionCard
-        institutionId={1}
-        institutionName="institution Name"
-        institutionType="institution Type"
-        institutionDescription="Description"
-      />
-      <InstitutionCard
-        institutionId={1}
-        institutionName="institution Name"
-        institutionType="institution Type"
-        institutionDescription="Description"
-      />
+      {institutions.map((institution: any) => {
+        return (
+          <InstitutionCard
+            institutionId={institution.id}
+            institutionName={institution.name}
+            institutionType="Institution"
+            institutionDescription={institution.description}
+          />
+        );
+      })}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { IoCloseSharp } from "react-icons/io5";
 type AllocateInvestigationModalProps = {
   isVisible: boolean;
   investigationId: number;
-  officeId: string | null;
+  childOffices: any;
   handleCloseButtonClick: () => void;
 };
 
@@ -12,7 +12,7 @@ const AllocateInvestigationModal = ({
   isVisible,
   handleCloseButtonClick,
   investigationId,
-  officeId,
+  childOffices,
 }: AllocateInvestigationModalProps) => {
   if (!isVisible) return null;
 
@@ -54,30 +54,31 @@ const AllocateInvestigationModal = ({
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>Office:</label>
             <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              {officeId === null ? (
-                ""
+              {childOffices.length > 0 ? (
+                childOffices.map((office: any) => (
+                  <option key={office.office.id} value={office.office.id}>
+                    {office.office.name}
+                  </option>
+                ))
               ) : (
-                <option value={officeId} selected>
-                  [Selected Office]
-                </option>
+                <option>Investigation already reached a beat office.</option>
               )}
-              <option value="[Id of the office]">[Office Name]</option>
-              <option value="[Id of the office]">[Office Name]</option>
-              <option value="[Id of the office]">[Office Name]</option>
             </select>
           </div>
         </div>
-        <div
-          id="AllocateInvestigationModalFooter"
-          className="mx-1 my-1 flex items-center justify-center md:mx-3 lg:mx-5"
-        >
-          <button
-            className="rounded-lg border-2 border-green-700 bg-green-700 p-2 text-white hover:border-green-700 hover:bg-white hover:text-green-700"
-            onClick={handleAllocateInvestigationButtonClick}
+        {childOffices.length > 0 && (
+          <div
+            id="AllocateInvestigationModalFooter"
+            className="mx-1 my-1 flex items-center justify-center md:mx-3 lg:mx-5"
           >
-            Allocate Investigation
-          </button>
-        </div>
+            <button
+              className="rounded-lg border-2 border-green-700 bg-green-700 p-2 text-white hover:border-green-700 hover:bg-white hover:text-green-700"
+              onClick={handleAllocateInvestigationButtonClick}
+            >
+              Allocate Investigation
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

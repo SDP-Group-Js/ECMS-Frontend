@@ -9,13 +9,20 @@ enum Status {
 
 type ViewComplaintsProps = {
   complaints: any;
+  institutionName: string;
 };
 
-const ViewComplaints = ({ complaints }: ViewComplaintsProps) => {
+const ViewComplaints = ({
+  complaints,
+  institutionName,
+}: ViewComplaintsProps) => {
   // If a complaint is selected a modal should pop up showing more details on selected complaint
   const [selectedComplaint, setSelectedComplaint] = useState<any>();
   return (
     <div>
+      <div className="my-2 flex text-xl font-bold">
+        <h3>View Complaints of {institutionName}</h3>
+      </div>
       <div>
         {complaints.map((complaint: any, index: number) => (
           <ComplaintCard

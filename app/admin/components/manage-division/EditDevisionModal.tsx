@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
@@ -59,32 +60,16 @@ const EditDivisionModal = ({
             <label>Division Name:&nbsp;</label>
             <input
               type="text"
-              value={divisionName ?? ''}
+              //value={divisionName ?? ''}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
             />
-          </div>
-
-          <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Division Type:</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              {divisionType === null ? (
-                ""
-              ) : (
-                <option value={divisionType} selected>
-                  [Selected Type]
-                </option>
-              )}
-              <option value="[Id of the division]">[Type]</option>
-              <option value="[Id of the division]">[Type]</option>
-              <option value="[Id of the division]">[Type]</option>
-            </select>
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>Division Description:&nbsp;</label>
             <input
               type="text"
-              value={divisionDescription ?? ''}
+              //value={divisionDescription ?? ''}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
             />
           </div>

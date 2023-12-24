@@ -9,6 +9,8 @@ type props = {
   involvedInvestigations: any;
   office: any;
   complaints: any;
+  institutionName: string;
+  childOffices: any;
 };
 
 const DashboardContentPanelBody = ({
@@ -17,13 +19,18 @@ const DashboardContentPanelBody = ({
   involvedInvestigations,
   office,
   complaints,
+  institutionName,
+  childOffices,
 }: props) => {
   return (
     <div className="rounded-md border-2 border-gray-400 p-4">
       <div
         className={activeTab === "complaints" ? "block px-2 py-1" : "hidden"}
       >
-        <ViewComplaints complaints={complaints} />
+        <ViewComplaints
+          complaints={complaints}
+          institutionName={institutionName}
+        />
       </div>
 
       <div
@@ -34,6 +41,8 @@ const DashboardContentPanelBody = ({
         <InvestigationsTable
           assignedInvestigations={assignedInvestigations}
           involvedInvestigations={involvedInvestigations}
+          office={office}
+          childOffices={childOffices}
         />
       </div>
 

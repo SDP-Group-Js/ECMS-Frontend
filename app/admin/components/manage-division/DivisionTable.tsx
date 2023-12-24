@@ -1,42 +1,25 @@
 import React from "react";
 import DivisionCard from "./DivisionCard";
 
+type props = {
+  divisions: any;
+};
 
-const InstitutionTable = () => {
+const DivisionTable = ({ divisions }: props) => {
   return (
     <div>
-      <DivisionCard
-        divisionId={1}
-        divisionName="division Name"
-        divisionType="division Type"
-        divisionDescription="Description"
-      />
-      <DivisionCard
-        divisionId={1}
-        divisionName="division Name"
-        divisionType="division Type"
-        divisionDescription="Description"
-      />
-      <DivisionCard
-        divisionId={1}
-        divisionName="division Name"
-        divisionType="division Type"
-        divisionDescription="Description"
-      />
-      <DivisionCard
-        divisionId={1}
-        divisionName="division Name"
-        divisionType="division Type"
-        divisionDescription="Description"
-      />
-      <DivisionCard
-        divisionId={1}
-        divisionName="division Name"
-        divisionType="division Type"
-        divisionDescription="Description"
-      />
+      {divisions.map((division: any) => {
+        return (
+          <DivisionCard
+            divisionId={division.id}
+            divisionName={division.name}
+            divisionType="Division"
+            divisionDescription={division.description}
+          />
+        );
+      })}
     </div>
   );
 };
 
-export default InstitutionTable;
+export default DivisionTable;

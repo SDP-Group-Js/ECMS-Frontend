@@ -1,12 +1,13 @@
-import React from "react";
+"use client";
+
+import React, { ChangeEvent, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
 type EditInstitutionModalProps = {
   isVisible: boolean;
-  institutionId: number;
-  institutionName: string | null;
-  institutionDescription: string | null;
-  institutionType: string | null;
+  institutionId: string;
+  institutionName: string;
+  institutionDescription: string;
   handleModalCloseButtonClick: () => void;
 };
 
@@ -16,9 +17,10 @@ const EditInstitutionModal = ({
   institutionId,
   institutionName,
   institutionDescription,
-  institutionType,
 }: EditInstitutionModalProps) => {
   if (!isVisible) return null;
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleEditButtonClick = () => {
     console.log("Institution Edited");
@@ -59,33 +61,25 @@ const EditInstitutionModal = ({
             <label>Institution Name:&nbsp;</label>
             <input
               type="text"
-              value={institutionName ?? ''}
+              //value={institutionName}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setName(e.target.value);
+                console.log(name);
+              }}
             />
-          </div>
-
-          <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Institution Type:</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              {institutionType === null ? (
-                ""
-              ) : (
-                <option value={institutionType} selected>
-                  [Selected Type]
-                </option>
-              )}
-              <option value="[Id of the institution]">[Type]</option>
-              <option value="[Id of the institution]">[Type]</option>
-              <option value="[Id of the institution]">[Type]</option>
-            </select>
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>Institution Description:&nbsp;</label>
             <input
               type="text"
-              value={institutionDescription ?? ''}
+              //value={institutionDescription}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setDescription(e.target.value);
+                console.log(description);
+              }}
             />
           </div>
         </div>

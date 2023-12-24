@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { auth } from "@/config/firebase";
 import { useAuth } from "@/context/auth";
 import { signOut } from "firebase/auth";
-import "@/components/shared/HeaderStyles.css";
 import Sidebar from "@/components/shared/Sidebar";
 import Header from "@/components/shared/Header";
 import DashboardContentPanel from "@/components/shared/DashboardContentPanel";
+import "@/components/shared/HeaderStyles.css";
 
 enum OfficeType {
   Institution = "Institution",
@@ -29,20 +29,28 @@ export default function Home() {
 
   const userOffice = user.details.office;
   let complaints: any = null;
+  let superInstitutionName: string = "";
   let officeType: OfficeType = OfficeType.BeatOffice;
+  let childOffices: any = [];
   if (userOffice.Institution != null) {
     complaints = userOffice.Institution.complaints;
+    superInstitutionName = userOffice.name;
     officeType = OfficeType.Institution;
+    childOffices = userOffice.Institution.divisions;
   } else if (userOffice.Division != null) {
     complaints = userOffice.Division.Institution.complaints;
+    superInstitutionName = userOffice.Division.Institution.office.name;
     officeType = OfficeType.Division;
+    childOffices = userOffice.Institution.branches;
   } else if (userOffice.Branch != null) {
     complaints = userOffice.Branch.Division.Institution.complaints;
+    superInstitutionName = userOffice.Branch.Division.Institution.office.name;
     officeType = OfficeType.Branch;
+    childOffices = userOffice.Institution.offices;
   } else if (userOffice.BeatOffice != null) {
-    console.log("BeatOffice");
     complaints = userOffice.BeatOffice.Branch.Division.Institution.complaints;
-    console.log(complaints);
+    superInstitutionName =
+      userOffice.BeatOffice.Branch.Division.Institution.office.name;
   }
 
   let assignedInvestigations = [];
@@ -74,15 +82,19 @@ export default function Home() {
             involvedInvestigations={involvedInvestigations}
             office={userOffice}
             complaints={complaints}
+            institutionName={superInstitutionName}
+            childOffices={childOffices}
           />
         </div>
         {!isAdmin && (
-          <button
-            className="m-2 border-2 border-slate-400 bg-slate-400 p-2 text-white"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
+          <div className="mt-20 flex items-center justify-center">
+            <button
+              className="m-2 rounded-full border-2 border-slate-500 bg-slate-500 px-4 py-3 text-xl font-bold text-white hover:bg-white hover:text-slate-500"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
         )}
       </div>
     </div>

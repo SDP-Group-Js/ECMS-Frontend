@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import EditOfficeModal from "./EditOfficeModal";
+import EditbranchModal from "./EditBranchModal";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdOutlineOpenInNew } from "react-icons/md";
 
 type props = {
-  officeId: number;
-  officeName: string | null;
-  officeType: string | null;
-  officeDescription: string | null;
+  branchId: number;
+  branchName: string | null;
+  branchType: string | null;
+  branchDescription: string | null;
 };
 
-const OfficeCard = ({
-  officeId,
-  officeName,
-  officeType,
-  officeDescription,
+const BranchCard = ({
+  branchId,
+  branchName,
+  branchType,
+  branchDescription,
 }: props) => {
   const [modalVisible, setEditModalVisible] = useState(false);
 
@@ -28,9 +28,9 @@ const OfficeCard = ({
   return (
     <>
       <div className="my-2 flex items-center justify-between rounded-xl border-2 border-gray-400 px-4 py-[0.75rem]">
-        <div className="mr-5 w-[15rem]">{officeId}</div>
-        <div className="mx-5 w-[25rem]">{officeName}</div>
-        <div className="mx-5 w-[25rem]">{officeDescription}</div>
+        <div className="mr-5 w-[15rem]">{branchId}</div>
+        <div className="mx-5 w-[25rem]">{branchName}</div>
+        <div className="mx-5 w-[25rem]">{branchDescription}</div>
         <div>
           <button
             onClick={handleEditButtonClick}
@@ -39,12 +39,12 @@ const OfficeCard = ({
             Edit <MdOutlineOpenInNew className="h-8 w-8" />
           </button>
         </div>
-        <EditOfficeModal
+        <EditbranchModal
           isVisible={modalVisible}
-          officeId={officeId}
-          officeName={officeName}
-          officeDescription={officeDescription}
-          officeType={officeType}
+          branchId={branchId}
+          branchName={branchName}
+          branchDescription={branchDescription}
+          branchType={branchType}
           handleModalCloseButtonClick={handleModalCloseButtonClick}
         />
       </div>
@@ -52,4 +52,4 @@ const OfficeCard = ({
   );
 };
 
-export default OfficeCard;
+export default BranchCard;

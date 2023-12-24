@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }: any) => {
         console.log("Hi");
         const uid = user.uid;
 
-        // Need to fetch user details by providing uid
+        //Need to fetch user details by providing uid
         const token = await user.getIdToken(true);
         const response = await fetch(
           `${API_URL}/api/user/users/getDetails/${uid}`,
@@ -34,6 +34,7 @@ export const AuthProvider = ({ children }: any) => {
           },
         );
         const userDetails = await response.json();
+        console.log(userDetails);
         user.details = userDetails;
         const userRole = userDetails.userRole;
 

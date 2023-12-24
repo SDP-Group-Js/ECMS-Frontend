@@ -2,19 +2,19 @@ import React from "react";
 import StakeholderCard from "./StakeholderCard";
 
 type StakeholderListProps = {
-  investigationId: number;
+  stakeholders: any;
 };
 
-const StakeholderList = ({ investigationId }: StakeholderListProps) => {
-  const officeIds = ["1", "2", "3"];
+const StakeholderList = ({ stakeholders }: StakeholderListProps) => {
   return (
-    <div className="w-[85%]">
-      {officeIds.map((officeId) => (
-        <StakeholderCard
-          key={officeId}
-          investigationId={investigationId}
-          officeId={officeId}
-        />
+    <div className="w-[100%]">
+      {stakeholders.length == 0 && (
+        <div className="mx-2 my-2 flex w-full items-center justify-start space-x-10 rounded-md border-2 border-gray-400 px-2 py-2">
+          <span>No stakeholders</span>
+        </div>
+      )}
+      {stakeholders.map((stakeholderOffice: any, index: number) => (
+        <StakeholderCard key={index + 1} stakeholder={stakeholderOffice} />
       ))}
     </div>
   );

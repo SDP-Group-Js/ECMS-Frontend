@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
+import { useAuth } from "@/context/adminAuth";
 
 type AddDivisionModalProps = {
   isVisible: boolean;
@@ -14,6 +16,8 @@ const AddDivisionModal = ({
   handleModalCloseButtonClick,
 }: AddDivisionModalProps) => {
   if (!isVisible) return null;
+
+  const { institutions } = useAuth();
 
   const handleAddButtonClick = () => {
     console.log("Division Added");
@@ -40,15 +44,6 @@ const AddDivisionModal = ({
           className="my-2 w-full flex-col justify-center text-xl"
         >
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Division Id:&nbsp;</label>
-            <input
-              type="text"
-              placeholder="Enter Division ID"
-              className="ml-2 flex-grow rounded-lg border-2 p-2"
-            />
-          </div>
-
-          <div className="mx-4 my-4 flex items-center justify-center">
             <label>Division Name:&nbsp;</label>
             <input
               type="text"
@@ -58,14 +53,13 @@ const AddDivisionModal = ({
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Division Type:</label>
+            <label>Parent Institution:</label>
             <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              <option value="" selected>
-                [Selected Type]
-              </option>
-              <option value="">[Type]</option>
-              <option value="">[Type]</option>
-              <option value="">[Type]</option>
+              {institutions.map((institution: any) => (
+                <option key={institution.id} value={institution.id}>
+                  {institution.name}
+                </option>
+              ))}
             </select>
           </div>
 

@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
+import { useAuth } from "@/context/adminAuth";
 
 type AddOfficeModalProps = {
   isVisible: boolean;
@@ -14,6 +16,8 @@ const AddOfficeModal = ({
   handleModalCloseButtonClick,
 }: AddOfficeModalProps) => {
   if (!isVisible) return null;
+
+  const { branches } = useAuth();
 
   const handleAddButtonClick = () => {
     console.log("Office Added");
@@ -40,15 +44,6 @@ const AddOfficeModal = ({
           className="my-2 w-full flex-col justify-center text-xl"
         >
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Office Id:&nbsp;</label>
-            <input
-              type="text"
-              placeholder="Enter Office ID"
-              className="ml-2 flex-grow rounded-lg border-2 p-2"
-            />
-          </div>
-
-          <div className="mx-4 my-4 flex items-center justify-center">
             <label>Office Name:&nbsp;</label>
             <input
               type="text"
@@ -58,14 +53,13 @@ const AddOfficeModal = ({
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Office Type:</label>
+            <label>Parent Branch:</label>
             <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              <option value="" selected>
-                [Selected Type]
-              </option>
-              <option value="">[Type]</option>
-              <option value="">[Type]</option>
-              <option value="">[Type]</option>
+              {branches.map((branch: any) => (
+                <option key={branch.id} value={branch.id}>
+                  {branch.name}
+                </option>
+              ))}
             </select>
           </div>
 

@@ -6,18 +6,15 @@ type AddInstitutionModalProps = {
   textToDisplay: string;
   onClick: () => void;
   handleModalCloseButtonClick: () => void;
-
 };
 
 const AddInstitutionModal = ({
   onClick,
   isVisible,
   handleModalCloseButtonClick,
-
- 
 }: AddInstitutionModalProps) => {
   if (!isVisible) return null;
-  
+
   const handleAddButtonClick = () => {
     console.log("Institution Added");
   };
@@ -43,33 +40,12 @@ const AddInstitutionModal = ({
           className="my-2 w-full flex-col justify-center text-xl"
         >
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Institution Id:&nbsp;</label>
-            <input
-              type="text"
-              placeholder="Enter Institute ID"
-              className="ml-2 flex-grow rounded-lg border-2 p-2"
-            />
-          </div>
-
-          <div className="mx-4 my-4 flex items-center justify-center">
             <label>Institution Name:&nbsp;</label>
             <input
               type="text"
               placeholder="Enter Institute Name"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
             />
-          </div>
-
-          <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Institution Type:</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-                <option value="" selected>
-                  [Selected Type]
-                </option>
-              <option value="">[Type]</option>
-              <option value="">[Type]</option>
-              <option value="">[Type]</option>
-            </select>
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
