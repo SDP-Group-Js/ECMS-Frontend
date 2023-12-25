@@ -1,4 +1,8 @@
-import React from "react";
+"use client";
+
+import { auth } from "@/config/firebase";
+import { useAuth } from "@/context/adminAuth";
+import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
 type AddUserModalProps = {
@@ -15,8 +19,58 @@ const AddUserModal = ({
 }: AddUserModalProps) => {
   if (!isVisible) return null;
 
-  const handleAddButtonClick = () => {
-    console.log("User Added");
+  const [userName, setUserName] = useState("");
+  const [userNIC, setUserNIC] = useState("");
+  const [userPhone, setUserPhone] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+
+  const { fetchData } = useAuth();
+
+  const handleAddButtonClick = async () => {
+    try {
+      const API_URL = "http://localhost:8080";
+
+      const token = await auth.currentUser?.getIdToken(true);
+      const nicResponse = await fetch(
+        `${API_URL}/api/user/publicUsers/${userNIC}/exists`,
+      );
+      const data = await nicResponse.json();
+
+      const userExists = data.publicUserWithNicExists;
+      if (userExists)
+        throw new Error("There already exists a user with this NIC.");
+
+      const body = JSON.stringify({
+        userEmail,
+        userPassword,
+        userNIC,
+        userName,
+        userPhone,
+      });
+
+      const newPublicUserResponse = await fetch(
+        `${API_URL}/api/user/admin/createPublicUserByAdmin`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: body,
+        },
+      );
+
+      if (newPublicUserResponse.ok) {
+        await fetchData(auth.currentUser);
+        alert("Public User Added.");
+        handleModalCloseButtonClick();
+      } else {
+        throw new Error("User not added.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 backdrop-blur-sm">
@@ -45,6 +99,7 @@ const AddUserModal = ({
               type="text"
               placeholder="Enter User Name"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserName(e.target.value)}
             />
           </div>
 
@@ -54,6 +109,7 @@ const AddUserModal = ({
               type="text"
               placeholder="Enter National Identity Card No."
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserNIC(e.target.value)}
             />
           </div>
 
@@ -63,6 +119,17 @@ const AddUserModal = ({
               type="text"
               placeholder="Enter Phone Number"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserPhone(e.target.value)}
+            />
+          </div>
+
+          <div className="mx-4 my-4 flex items-center justify-center">
+            <label>Email:&nbsp;</label>
+            <input
+              type="email"
+              placeholder="Enter User's Email"
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserEmail(e.target.value)}
             />
           </div>
 
@@ -70,8 +137,9 @@ const AddUserModal = ({
             <label>Password:&nbsp;</label>
             <input
               type="text"
-              placeholder="Enter user's password"
+              placeholder="Enter User's Password"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserPassword(e.target.value)}
             />
           </div>
         </div>

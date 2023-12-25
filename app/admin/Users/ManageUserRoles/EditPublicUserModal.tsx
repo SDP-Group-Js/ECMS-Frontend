@@ -1,25 +1,66 @@
-import React from "react";
+"use client";
+
+import { auth } from "@/config/firebase";
+import { useAuth } from "@/context/adminAuth";
+import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
 type EditUserModalProps = {
   isVisible: boolean;
-  userName: string | null;
-  userNIC: string | null;
-  userPhone: string | null;
   handleModalCloseButtonClick: () => void;
+  userId: string;
+  name: string | null;
+  nic: string | null;
+  phone: string | null;
 };
 
 const EditUserModal = ({
   isVisible,
   handleModalCloseButtonClick,
-  userName,
-  userNIC,
-  userPhone,
+  userId,
+  name,
+  nic,
+  phone,
 }: EditUserModalProps) => {
   if (!isVisible) return null;
 
-  const handleEditButtonClick = () => {
-    console.log("User Edited");
+  const [userName, setUserName] = useState(name);
+  const [userNIC, setUserNIC] = useState(nic);
+  const [userPhone, setUserPhone] = useState(phone);
+  const { fetchData } = useAuth();
+
+  const handleEditButtonClick = async () => {
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+
+      const body = JSON.stringify({
+        userId,
+        userNIC,
+        userName,
+        userPhone,
+      });
+      const updatedPublicUserResponse = await fetch(
+        `${API_URL}/api/user/publicUsers`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: body,
+        },
+      );
+      if (updatedPublicUserResponse.ok) {
+        await fetchData(auth.currentUser);
+        alert("User Updated.");
+        handleModalCloseButtonClick();
+      } else {
+        throw new Error("User not edited.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -46,30 +87,30 @@ const EditUserModal = ({
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>User Name:&nbsp;</label>
             <input
-              value={userName ?? ""}
               type="text"
               placeholder="Enter User Name"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserName(e.target.value)}
             />
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>User NIC:&nbsp;</label>
             <input
-              value={userNIC ?? ""}
               type="text"
               placeholder="Enter National Identity Card No."
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserNIC(e.target.value)}
             />
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>User Phone:&nbsp;</label>
             <input
-              value={userPhone ?? ""}
               type="text"
               placeholder="Enter Phone Number"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserPhone(e.target.value)}
             />
           </div>
         </div>

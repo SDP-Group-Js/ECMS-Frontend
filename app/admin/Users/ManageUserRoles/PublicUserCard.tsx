@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import EditUserModal from "./EditUserModal";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdOutlineOpenInNew } from "react-icons/md";
+import EditPublicUserModal from "./EditPublicUserModal";
 
 type props = {
   userId: string;
@@ -35,12 +36,13 @@ const UserCard = ({ userId, userName, userNIC, userPhone }: props) => {
             Edit <MdOutlineOpenInNew className="h-8 w-8" />
           </button>
         </div>
-        <EditUserModal
+        <EditPublicUserModal
           isVisible={modalVisible}
-          userName={userName}
-          userOfficeName={userNIC}
-          userPhone={userPhone}
           handleModalCloseButtonClick={handleModalCloseButtonClick}
+          userId={userId}
+          name={userName}
+          nic={userNIC}
+          phone={userPhone}
         />
       </div>
     </>
