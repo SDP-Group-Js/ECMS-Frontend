@@ -46,13 +46,13 @@ const ComplaintCard = ({
   return (
     <>
       <div
-        className="my-2 flex items-center justify-between rounded-xl border-2 border-gray-400 px-4 py-[0.75rem] hover:bg-gray-400"
+        className="space=x-10 my-2 flex flex-grow items-center justify-start rounded-xl border-2 border-gray-400 px-4 py-[0.75rem] hover:bg-gray-400"
         onClick={handleCardClick}
       >
-        <div>{complaintId}</div>
-        <div>{complaintTitle}</div>
-        <div>{complaintComplainer?.name}</div>
-        <div className="flex items-center justify-center space-x-10">
+        <div className="mx-10 w-10">{complaintId}</div>
+        <div className="mx-10 w-[40rem]">{complaintTitle}</div>
+        <div className="w-30 mx-10">{complaintComplainer?.name}</div>
+        <div className="flex flex-grow items-center justify-end space-x-10">
           <ComplaintStatusTag
             id={complaintId}
             complaintStatus={complaintStatus}

@@ -1,5 +1,10 @@
+"use client";
+
 import React from "react";
 import { IoCloseSharp } from "react-icons/io5";
+import { useAuth } from "@/context/adminAuth";
+import { useState } from "react";
+import { auth } from "@/config/firebase";
 
 type AddUserModalProps = {
   isVisible: boolean;
@@ -8,6 +13,15 @@ type AddUserModalProps = {
   handleModalCloseButtonClick: () => void;
 };
 
+enum UserRole {
+  SystemAdmin = "SystemAdmin",
+  OfficeAdmin = "OfficeAdmin",
+  ComplaintHandler = "ComplaintHandler",
+  InvestigationHandler = "InvestigationHandler",
+  Viewer = "Viewer",
+  FieldOfficer = "FieldOfficer",
+}
+
 const AddUserModal = ({
   onClick,
   isVisible,
@@ -15,9 +29,49 @@ const AddUserModal = ({
 }: AddUserModalProps) => {
   if (!isVisible) return null;
 
-  const handleAddButtonClick = () => {
-    console.log("User Added");
+  const { institutions, divisions, branches, beatOffices, fetchData } =
+    useAuth();
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
+  const [userOffice, setUserOffice] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+
+  const handleAddButtonClick = async () => {
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+      const userOfficeId = userOffice;
+      const body = JSON.stringify({
+        userEmail,
+        userPassword,
+        userName,
+        userOfficeId,
+        userRole,
+      });
+      const newUserResponse = await fetch(
+        `${API_URL}/api/user/admin/createUserByAdmin`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: body,
+        },
+      );
+      if (newUserResponse.ok) {
+        await fetchData(auth.currentUser);
+        alert("User Added.");
+        handleModalCloseButtonClick();
+      } else {
+        throw new Error("User not added.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 backdrop-blur-sm">
       <div className="flex w-[400px] flex-col rounded-lg bg-white p-2 md:w-[550px] lg:w-[600px]">
@@ -45,42 +99,80 @@ const AddUserModal = ({
               type="text"
               placeholder="Enter User Name"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserName(e.target.value)}
             />
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>User Role</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              <option value="" selected>
-                [Selected Type]
+            <label>User Role:</label>
+            <select
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserRole(e.target.value)}
+            >
+              <option value={UserRole.SystemAdmin}>System Admin</option>
+              <option value={UserRole.OfficeAdmin}>Office Admin</option>
+              <option value={UserRole.ComplaintHandler}>
+                Complaint Handler
               </option>
-              <option value="">System Admin</option>
-              <option value="">Office Admin</option>
-              <option value="">Complaint Handler</option>
-              <option value="">Field Officer</option>
-              <option value="">Investigation Handler</option>
-              <option value="">Viewer</option>
+              <option value={UserRole.FieldOfficer}>Field Officer</option>
+              <option value={UserRole.InvestigationHandler}>
+                Investigation Handler
+              </option>
+              <option value={UserRole.Viewer} selected>
+                Viewer
+              </option>
             </select>
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Office</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              <option value="" selected>
-                [Selected Type]
+            <label>Office:</label>
+            <select
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserOffice(e.target.value)}
+            >
+              <option selected value="">
+                Select Office
               </option>
-              <option value="">[Type]</option>
-              <option value="">[Type]</option>
-              <option value="">[Type]</option>
+              {institutions.map((institution: any) => (
+                <option key={institution.id} value={institution.id}>
+                  Institution: {institution.name}
+                </option>
+              ))}
+              {divisions.map((division: any) => (
+                <option key={division.id} value={division.id}>
+                  Division: {division.name}
+                </option>
+              ))}
+              {branches.map((branch: any) => (
+                <option key={branch.id} value={branch.id}>
+                  Branch: {branch.name}
+                </option>
+              ))}
+              {beatOffices.map((beatOffice: any) => (
+                <option key={beatOffice.id} value={beatOffice.id}>
+                  Beat Office: {beatOffice.name}
+                </option>
+              ))}
             </select>
+          </div>
+
+          <div className="mx-4 my-4 flex items-center justify-center">
+            <label>Email:&nbsp;</label>
+            <input
+              type="email"
+              placeholder="Enter User's Email"
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserEmail(e.target.value)}
+            />
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>Password:&nbsp;</label>
             <input
               type="text"
-              placeholder="Enter user's Password"
+              placeholder="Enter User's Password"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setUserPassword(e.target.value)}
             />
           </div>
         </div>

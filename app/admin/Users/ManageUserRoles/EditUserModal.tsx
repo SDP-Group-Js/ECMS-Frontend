@@ -1,25 +1,75 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
+import { useAuth } from "@/context/adminAuth";
+import { auth } from "@/config/firebase";
 
 type EditUserModalProps = {
   isVisible: boolean;
+  userId: string;
   userName: string | null;
-  userOfficeName: string | null;
-  userPhone: string | null;
+  userOfficeId: string | null;
+  userType: string | null;
   handleModalCloseButtonClick: () => void;
 };
+
+enum UserRole {
+  SystemAdmin = "SystemAdmin",
+  OfficeAdmin = "OfficeAdmin",
+  ComplaintHandler = "ComplaintHandler",
+  InvestigationHandler = "InvestigationHandler",
+  Viewer = "Viewer",
+  FieldOfficer = "FieldOfficer",
+}
 
 const EditUserModal = ({
   isVisible,
   handleModalCloseButtonClick,
+  userId,
   userName,
-  userOfficeName,
-  userPhone,
+  userOfficeId,
+  userType,
 }: EditUserModalProps) => {
   if (!isVisible) return null;
+  const { institutions, divisions, branches, beatOffices, fetchData } =
+    useAuth();
 
-  const handleEditButtonClick = () => {
-    console.log("User Edited");
+  const [newUserName, setNewUserName] = useState(userName);
+  const [newUserRole, setNewUserRole] = useState(userType);
+  const [newUserOffice, setNewUserOffice] = useState(userOfficeId);
+
+  const handleEditButtonClick = async () => {
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+      const userName = newUserName;
+      const userRole = newUserRole;
+      const userOfficeId = newUserOffice;
+      const body = JSON.stringify({
+        userId,
+        userName,
+        userOfficeId,
+        userRole,
+      });
+      const updatedUserResponse = await fetch(`${API_URL}/api/user/users`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: body,
+      });
+      if (updatedUserResponse.ok) {
+        await fetchData(auth.currentUser);
+        alert("User Updated.");
+        handleModalCloseButtonClick();
+      } else {
+        throw new Error("User not edited.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -44,46 +94,104 @@ const EditUserModal = ({
           className="my-2 w-full flex-col justify-center text-xl"
         >
           <div className="mx-4 my-4 flex items-center justify-center">
+            <label>User Id:&nbsp;</label>
+            <input
+              type="text"
+              value={userId ?? ""}
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+              readOnly
+            />
+          </div>
+
+          <div className="mx-4 my-4 flex items-center justify-center">
             <label>User Name:&nbsp;</label>
             <input
               type="text"
-              value={userName ?? ""}
+              //value={userName ?? ""}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setNewUserName(e.target.value)}
             />
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>User Role</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              {userPhone === null ? (
-                ""
+            <select
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setNewUserRole(e.target.value)}
+            >
+              {userType === UserRole.SystemAdmin ? (
+                <option value={UserRole.SystemAdmin} selected>
+                  System Admin
+                </option>
               ) : (
-                <option value={userPhone} selected>
-                  [Selected Role]
+                <option value={UserRole.SystemAdmin}>System Admin</option>
+              )}
+              {userType === UserRole.OfficeAdmin ? (
+                <option value={UserRole.OfficeAdmin} selected>
+                  Office Admin
+                </option>
+              ) : (
+                <option value={UserRole.OfficeAdmin}>System Admin</option>
+              )}
+              {userType === UserRole.ComplaintHandler ? (
+                <option value={UserRole.ComplaintHandler} selected>
+                  Complaint handler
+                </option>
+              ) : (
+                <option value={UserRole.ComplaintHandler}>System Admin</option>
+              )}
+              {userType === UserRole.InvestigationHandler ? (
+                <option value={UserRole.InvestigationHandler} selected>
+                  Investigation Handler
+                </option>
+              ) : (
+                <option value={UserRole.InvestigationHandler}>
+                  System Admin
                 </option>
               )}
-              <option value="[Id of the user]">System Admin</option>
-              <option value="[Id of the user]">Office Admin</option>
-              <option value="[Id of the user]">Complaint Handler</option>
-              <option value="[Id of the user]">Investigation Handler</option>
-              <option value="[Id of the user]">Viewer</option>
-              <option value="[Id of the user]">Field Officer</option>
+              {userType === UserRole.FieldOfficer ? (
+                <option value={UserRole.FieldOfficer} selected>
+                  Field Officer
+                </option>
+              ) : (
+                <option value={UserRole.FieldOfficer}>System Admin</option>
+              )}
+              {userType === UserRole.Viewer ? (
+                <option value={UserRole.Viewer} selected>
+                  Viewer
+                </option>
+              ) : (
+                <option value={UserRole.Viewer}>System Admin</option>
+              )}
             </select>
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>Office</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
-              {userOfficeName === null ? (
-                ""
-              ) : (
-                <option value={userOfficeName} selected>
-                  [Selected Type]
+            <select
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setNewUserOffice(e.target.value)}
+            >
+              {institutions.map((institution: any) => (
+                <option key={institution.id} value={institution.id}>
+                  Institution: {institution.name}
                 </option>
-              )}
-              <option value="[Id of the user]">[Type]</option>
-              <option value="[Id of the user]">[Type]</option>
-              <option value="[Id of the user]">[Type]</option>
+              ))}
+              {divisions.map((division: any) => (
+                <option key={division.id} value={division.id}>
+                  Division: {division.name}
+                </option>
+              ))}
+              {branches.map((branch: any) => (
+                <option key={branch.id} value={branch.id}>
+                  Branch: {branch.name}
+                </option>
+              ))}
+              {beatOffices.map((beatOffice: any) => (
+                <option key={beatOffice.id} value={beatOffice.id}>
+                  Beat Office: {beatOffice.name}
+                </option>
+              ))}
             </select>
           </div>
         </div>

@@ -14,6 +14,7 @@ const UserTable = ({ users }: props) => {
             userId={user.id}
             userName={user.name}
             userType={user.userRole}
+            userOfficeId={user.office.id}
             userOfficeName={user.office.name}
           />
         );

@@ -4,13 +4,20 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdOutlineOpenInNew } from "react-icons/md";
 
 type props = {
-  userId: number;
+  userId: string;
   userName: string | null;
   userType: string | null;
+  userOfficeId: string | null;
   userOfficeName: string | null;
 };
 
-const UserCard = ({ userId, userName, userType, userOfficeName }: props) => {
+const UserCard = ({
+  userId,
+  userName,
+  userType,
+  userOfficeId,
+  userOfficeName,
+}: props) => {
   const [modalVisible, setEditModalVisible] = useState(false);
 
   const handleModalCloseButtonClick = () => {
@@ -37,8 +44,9 @@ const UserCard = ({ userId, userName, userType, userOfficeName }: props) => {
         </div>
         <EditUserModal
           isVisible={modalVisible}
+          userId={userId}
           userName={userName}
-          userOfficeName={userOfficeName}
+          userOfficeId={userOfficeId}
           userType={userType}
           handleModalCloseButtonClick={handleModalCloseButtonClick}
         />
