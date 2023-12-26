@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { FaAngleDown, FaAngleUp, FaTimes, FaTrash } from "react-icons/fa";
 import Modal from "./Modal";
+import { auth } from "@/config/firebase";
+import { useAuth } from "@/context/auth";
 
 interface SetInvestigationWorkflowParamTypes {
   investigationId: number;
@@ -18,13 +20,40 @@ const SetInvestigationWorkflow = ({
   const [openDropDown, setOpenDropDown] = useState(false);
   const [stages, setStages] = useState<string[]>([]);
 
-  const createWorkflow = () => {
-    const body = {
-      investigationId: investigationId,
-      institutionWorkflow: selectedWorkflow,
-    };
+  const { fetchData } = useAuth();
 
-    console.log(body);
+  const createWorkflow = async () => {
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+
+      const body = {
+        investigationId: investigationId,
+        institutionWorkflow: selectedWorkflow,
+      };
+      const allocationResponse = await fetch(
+        `${API_URL}/api/workflow/investigation`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(body),
+        },
+      );
+      if (allocationResponse.ok) {
+        alert(`Workflow Allocated to Investigation`);
+        await fetchData(auth.currentUser);
+        closeForm();
+      } else {
+        throw new Error(
+          `The workflow could not be allocated to the investigation.`,
+        );
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -90,7 +119,10 @@ const SetInvestigationWorkflow = ({
               ))}
           </div>
 
-          <button className="mt-5 rounded-lg bg-gray-700 px-3 py-1 text-xl font-bold text-white">
+          <button
+            className="mt-5 rounded-lg bg-gray-700 px-3 py-1 text-xl font-bold text-white"
+            onClick={createWorkflow}
+          >
             Set Workflow
           </button>
         </div>

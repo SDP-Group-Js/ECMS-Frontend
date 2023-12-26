@@ -8,6 +8,8 @@ import {
   FaUser,
 } from "react-icons/fa";
 import Modal from "../workflow/Modal";
+import { storage } from "@/config/firebase";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
 
 type ViewInvestigationActionProps = {
   investigationStages: any;
@@ -157,6 +159,32 @@ const TakeActionForm = ({ closeModal }: any) => {
 };
 
 const ViewActionDetail = ({ action, closeModal }: any) => {
+  const [files, setFiles] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const actionEvidenceRef = ref(storage, `action-evidence/${action.id}/`);
+
+      try {
+        const imageList = await listAll(actionEvidenceRef);
+
+        const imageFiles = await Promise.all(
+          imageList.items.map(async (imageRef) => {
+            const downloadURL = await getDownloadURL(imageRef);
+            return { name: imageRef.name, url: downloadURL };
+          }),
+        );
+
+        setFiles(imageFiles);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+        setFiles([]);
+      }
+    };
+
+    fetchImages();
+  }, [action]);
+
   return (
     <Modal onClick={closeModal}>
       <div
@@ -170,15 +198,22 @@ const ViewActionDetail = ({ action, closeModal }: any) => {
           <FaTimes />
         </button>
         <div className="flex items-center gap-2">
-          <div className="text-2xl font-bold">[Action Name]</div>
-          <div className="text-xl font-bold">Officer's Action</div>
+          <div className="text-2xl font-bold">{action.name}</div>
+          <span className="text-xl font-bold">&nbsp;by&nbsp;</span>
+          <div className="text-xl font-bold">{action.user.name}</div>
         </div>
-        <div>[Action Description]</div>
+        <div className="my-4">{action.description}</div>
         <div className="m-auto flex w-fit flex-wrap gap-2">
-          <div className="h-[250px] w-[500px] bg-gray-300" />
-          <div className="h-[250px] w-[500px] bg-gray-300" />
-          <div className="h-[250px] w-[500px] bg-gray-300" />
-          <div className="h-[250px] w-[500px] bg-gray-300" />
+          {files.map((file, index) => (
+            <div className="flex h-[250px] w-[500px] items-center justify-center bg-gray-300">
+              <img
+                key={index + 1}
+                src={file.url}
+                alt={`Preview ${index}`}
+                className="mx-auto mb-2 max-h-[100px]"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </Modal>

@@ -7,19 +7,35 @@ import LoginForm from "@/app/signin/LoginForm";
 export const AuthContext = createContext({
   user: null,
   loading: false,
-  complaints: [],
-  institutions: [],
-  publicUsers: [null],
+  fetchData: (user: any) => {},
 });
 
 export const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [complaints, setComplaints] = useState([]);
-  const [institutions, setInstitutions] = useState([]);
-  const [publicUsers, setPublicUsers] = useState([]);
 
   const API_URL = "http://localhost:8080";
+
+  const fetchData = async (user: any) => {
+    const uid = user.uid;
+
+    //Need to fetch user details by providing uid
+    const token = await user.getIdToken(true);
+    const response = await fetch(
+      `${API_URL}/api/user/users/getDetails/${uid}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const userDetails = await response.json();
+    console.log(userDetails);
+    user.details = userDetails;
+    const userRole = userDetails.userRole;
+
+    setUser(user);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user: any) => {
@@ -44,43 +60,9 @@ export const AuthProvider = ({ children }: any) => {
         user.details = userDetails;
         const userRole = userDetails.userRole;
 
-        const complaints = await fetch(
-          `${API_URL}/api/complaint/unallocatedComplaints`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-        const complaintData = await complaints.json();
-
-        const institutions = await fetch(
-          `${API_URL}/api/institution/institutions`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-        const institutionData = await institutions.json();
-
-        const publicUsers = await fetch(`${API_URL}/api/user/publicUsers`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const publicUserData = await publicUsers.json();
-
-        setComplaints(complaintData);
-        setInstitutions(institutionData);
-        setPublicUsers(publicUserData);
-
         setUser(user);
         setLoading(false);
       } else {
-        setComplaints([]);
-        setInstitutions([]);
-        setPublicUsers([]);
         setUser(null);
         setLoading(false);
       }
@@ -92,9 +74,7 @@ export const AuthProvider = ({ children }: any) => {
   const AuthValues = {
     user: user,
     loading: loading,
-    complaints: complaints,
-    institutions: institutions,
-    publicUsers: publicUsers,
+    fetchData: fetchData,
   };
 
   return (

@@ -62,7 +62,7 @@ const WorkflowAllocatedButton = ({
       className="flex w-40 items-center justify-center rounded-lg border-2 border-green-500 bg-green-500 px-2 py-1 font-bold text-white hover:border-green-400 hover:bg-white hover:text-green-400"
       onClick={onClick}
     >
-      Workflow Provided
+      Provided
     </button>
   );
 };

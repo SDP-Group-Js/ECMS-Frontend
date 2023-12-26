@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import ComplaintStatusTag from "./ComplaintStatusTag";
-import StartInvestigationModal from "./StartInvestigationModal";
+import AllocateComplaintModal from "./AllocateComplaintModal";
 import ViewComplaintModal from "./ViewComplaintModal";
 
 type ComplaintCardProps = {
@@ -59,7 +59,7 @@ const ComplaintCard = ({
         </div>
       </div>
       {allocationModalVisible && complaintStatus === "Processing" && (
-        <StartInvestigationModal
+        <AllocateComplaintModal
           isVisible={allocationModalVisible}
           complaintId={complaintId}
           complaintTitle={complaintTitle}

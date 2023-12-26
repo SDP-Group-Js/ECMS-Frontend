@@ -4,6 +4,7 @@ import { FaTimes, FaTrash } from "react-icons/fa";
 import SetStages from "./SetStages";
 import Modal from "./Modal";
 import { useAuth } from "@/context/auth";
+import { auth } from "@/config/firebase";
 
 interface CreateInstitutionWorkflowParamTypes {
   officeId: string;
@@ -21,34 +22,37 @@ const CreateInstitutionWorkflow = ({
   const [description, setDescription] = useState("");
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
-  const { user } = useAuth() as any;
+  const { user, fetchData } = useAuth() as any;
 
   const createWorkflow = async () => {
-    const body = {
-      name: name,
-      stages: stages,
-      officeId: officeId,
-      description: description,
-    };
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
 
-    console.log(body)
-
-    if (user) {
-      const token = await user.getIdToken(true)
-      const request = await fetch(`${API_URL}/api/workflow/instiution`, {
+      const body = JSON.stringify({
+        officeId,
+        stages,
+        name,
+        description,
+      });
+      const response = await fetch(`${API_URL}/api/workflow/institution`, {
         method: "POST",
-        body: JSON.stringify(body),
         headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      })
-
-      const response = await request.json()
-      alert(response.message)
-    } else {
-      alert("Login Required")
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: body,
+      });
+      if (response.ok) {
+        alert(`Workflow Created`);
+        await fetchData(auth.currentUser);
+        closeForm();
+      } else {
+        throw new Error(`Workflow could not be created.`);
+      }
+    } catch (error) {
+      alert(error);
     }
-    
   };
 
   return (
@@ -57,7 +61,10 @@ const CreateInstitutionWorkflow = ({
         onClick={(e) => e.stopPropagation()}
         className="relative rounded-xl bg-white px-20 text-center"
       >
-        <button onClick={closeForm} className="absolute right-2 top-2 h-fit w-fit rounded-full bg-red-700 p-1 text-white">
+        <button
+          onClick={closeForm}
+          className="absolute right-2 top-2 h-fit w-fit rounded-full bg-red-700 p-1 text-white"
+        >
           <FaTimes className="text-2xl" />
         </button>
         <div className="mt-5 text-3xl font-black">
@@ -89,7 +96,7 @@ const CreateInstitutionWorkflow = ({
 
           <button
             onClick={createWorkflow}
-            className="mt-5 rounded-lg bg-gray-700 mb-5 px-2 py-1 text-xl font-bold text-white"
+            className="mb-5 mt-5 rounded-lg bg-gray-700 px-2 py-1 text-xl font-bold text-white"
           >
             Create Workflow
           </button>

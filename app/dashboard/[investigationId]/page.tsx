@@ -60,7 +60,7 @@ export default function InvestigationPage({ params }: params) {
   if (investigation == null || investigation == undefined) {
     investigationExists = false;
   } else {
-    investigationWorkflow = investigation.workflow;
+    investigationWorkflow = investigation.institutionWorkflow;
     if (investigationWorkflow != null) {
       investigationHasWorkflow = true;
     }
@@ -85,7 +85,6 @@ export default function InvestigationPage({ params }: params) {
               <div className="mx-14 my-10 rounded-md border-2 border-gray-400 px-10 py-10">
                 <div className="flex w-full text-xl font-bold text-black">
                   Investigation #{investigation.id}
-                  <span>{investigation.id}</span>
                 </div>
                 <div className="mt-10 text-lg">
                   <div className="flex items-center justify-start space-x-5">

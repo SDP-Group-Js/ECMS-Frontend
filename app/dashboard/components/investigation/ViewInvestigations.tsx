@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import InvestigationCard from "./InvestigationCard";
+import InvolvedInvestigationCard from "./InvolvedInvestigationCard";
 
 enum Status {
   NotAssigned = "NotAssigned",
@@ -34,9 +35,10 @@ const ViewInvestigations = ({
           <InvestigationCard
             investigationId={investigation.id}
             investigationStatus={investigation.status}
+            investigationDescription={investigation.description}
             investigationComplaintId={investigation.complaintId}
             investigationOffice={investigation.office}
-            investigationWorkflow={investigation.workflow}
+            investigationWorkflow={investigation.institutionWorkflow}
             officeWorkflows={office.workflows}
             childOffices={childOffices}
           />
@@ -47,12 +49,13 @@ const ViewInvestigations = ({
           Involved Investigations
         </div>
         {involvedInvestigations.map((investigation: any, index: number) => (
-          <InvestigationCard
+          <InvolvedInvestigationCard
             investigationId={investigation.id}
             investigationStatus={investigation.status}
+            investigationDescription={investigation.description}
             investigationComplaintId={investigation.complaintId}
             investigationOffice={office}
-            investigationWorkflow={investigation.workflow}
+            investigationWorkflow={investigation.institutionWorkflow}
             officeWorkflows={office.workflows}
             childOffices={childOffices}
           />

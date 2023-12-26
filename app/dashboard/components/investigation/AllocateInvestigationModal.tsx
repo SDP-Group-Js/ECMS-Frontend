@@ -1,4 +1,8 @@
-import React from "react";
+"use client";
+
+import { auth } from "@/config/firebase";
+import { useAuth } from "@/context/auth";
+import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
 type AllocateInvestigationModalProps = {
@@ -16,12 +20,50 @@ const AllocateInvestigationModal = ({
 }: AllocateInvestigationModalProps) => {
   if (!isVisible) return null;
 
-  const handleAllocateInvestigationButtonClick = () => {
-    console.log("Investigation Allocated");
+  const [officeId, setOfficeId] = useState("");
+
+  const { fetchData } = useAuth();
+
+  const handleAllocateInvestigationButtonClick = async () => {
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+
+      const body = JSON.stringify({
+        officeId,
+      });
+      const allocationResponse = await fetch(
+        `${API_URL}/api/investigation/${investigationId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: body,
+        },
+      );
+      if (allocationResponse.ok) {
+        alert(
+          `Investigation Id: ${investigationId} allocated to office Id: ${officeId}`,
+        );
+        await fetchData(auth.currentUser);
+        handleCloseButtonClick();
+      } else {
+        throw new Error(
+          `Investigation could not be allocated to office Id: ${officeId}.`,
+        );
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 backdrop-blur-sm">
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 backdrop-blur-sm"
+      onClick={(e) => e.stopPropagation()}
+    >
       <div className="flex w-[400px] flex-col rounded-lg bg-white p-2 md:w-[550px] lg:w-[600px]">
         <div
           id="AllocateInvestigationModalTitle"
@@ -53,7 +95,10 @@ const AllocateInvestigationModal = ({
 
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>Office:</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
+            <select
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setOfficeId(e.target.value)}
+            >
               {childOffices.length > 0 ? (
                 childOffices.map((office: any) => (
                   <option key={office.office.id} value={office.office.id}>

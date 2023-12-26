@@ -1,8 +1,9 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
-import { useAuth } from "@/context/auth";
+import { useAuth } from "@/context/complaintHandlerAuth";
+import { auth } from "@/config/firebase";
 
 type StartInvestigationModalProps = {
   isVisible: boolean;
@@ -23,12 +24,42 @@ const StartInvestigationModal = ({
 }: StartInvestigationModalProps) => {
   if (!isVisible) return null;
 
-  const { institutions } = useAuth();
+  const { institutions, fetchData } = useAuth();
 
-  const [investigationDescription, setInvestigationDescription] = useState("");
+  const [institution, setInstitution] = useState("");
 
-  const handleStartInvestigationButtonClick = () => {
-    console.log("Investigation Started");
+  const handleAllocateComplaintButtonClick = async () => {
+    const institutionId: string = institution;
+    if (!institutionId || institutionId == "") {
+      alert("Institution is required.");
+      return;
+    }
+
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+      const body = JSON.stringify({
+        complaintId,
+        institutionId,
+      });
+      const response = await fetch(`${API_URL}/api/complaint`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: body,
+      });
+      if (response.ok) {
+        alert("Complaint Allocated.");
+        await fetchData(auth.currentUser);
+        handleCloseButtonClick();
+      } else {
+        throw new Error("Complaint not allocated.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -93,9 +124,17 @@ const StartInvestigationModal = ({
 
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>Institution:</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
+            <select
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                setInstitution(e.target.value)
+              }
+            >
+              <option value="" selected>
+                Select Institution
+              </option>
               {institutions.map((institution: any) => (
-                <option key={institution.id} value={institution.id}>
+                <option key={institution.id} value={institution.Institution.id}>
                   {institution.name}
                 </option>
               ))}
@@ -108,7 +147,7 @@ const StartInvestigationModal = ({
         >
           <button
             className="rounded-lg border-2 border-green-500 bg-green-500 p-2 text-white hover:border-green-500 hover:bg-white hover:text-green-500"
-            onClick={handleStartInvestigationButtonClick}
+            onClick={handleAllocateComplaintButtonClick}
           >
             Allocate Complaint
           </button>

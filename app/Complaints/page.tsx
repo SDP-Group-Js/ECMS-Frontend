@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { auth } from "@/config/firebase";
-import { useAuth } from "@/context/auth";
+import { useAuth } from "@/context/complaintHandlerAuth";
 import { signOut } from "firebase/auth";
 import Sidebar from "@/components/shared/Sidebar";
 import Header from "@/components/shared/Header";
@@ -43,7 +43,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex h-full w-screen flex-row overflow-y-visible bg-slate-50">
+    <div className="flex h-full min-h-screen w-screen flex-row overflow-y-visible bg-slate-50">
       <div className="flex-1">
         {/* <Header officeType={officeType} office={userOffice} /> */}
         <div className="px-14 py-10">

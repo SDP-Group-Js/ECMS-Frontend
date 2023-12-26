@@ -10,6 +10,7 @@ export const AuthContext = createContext({
   institutions: [],
   publicUsers: [],
   loading: false,
+  fetchData: (user: any) => {},
 });
 
 export const AuthProvider = ({ children }: any) => {
@@ -21,65 +22,68 @@ export const AuthProvider = ({ children }: any) => {
 
   const API_URL = "http://localhost:8080";
 
+  const fetchData = async (user: any) => {
+    const uid = user.uid;
+
+    // Need to fetch user details by providing uid
+    const token = await user.getIdToken(true);
+    const userResponse = await fetch(
+      `${API_URL}/api/user/users/getDetails/${uid}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const userDetails = await userResponse.json();
+    user.details = userDetails;
+    const userRole = userDetails.userRole;
+
+    if (userRole !== "ComplaintHandler") {
+      window.location.pathname = "/dashboard";
+      alert("Only complaint handlers are allowed to allocate complaints");
+    }
+
+    //if (userRole == "ComplaintHandler") {
+    const complaints = await fetch(
+      `${API_URL}/api/complaint/unallocatedComplaints`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const complaintData = await complaints.json();
+
+    const offices = await fetch(`${API_URL}/api/institution`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const officeData = await offices.json();
+    const institutionData = officeData.filter(
+      (office: any) => office.Institution != undefined,
+    );
+
+    const publicUsers = await fetch(`${API_URL}/api/user/publicUsers`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const publicUserData = await publicUsers.json();
+
+    setComplaints(complaintData);
+    setInstitutions(institutionData);
+    setPublicUsers(publicUserData);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user: any) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/auth.user
         console.log("Hi");
-        const uid = user.uid;
-
-        // Need to fetch user details by providing uid
-        const token = await user.getIdToken(true);
-        const userResponse = await fetch(
-          `${API_URL}/api/user/users/getDetails/${uid}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-        const userDetails = await userResponse.json();
-        user.details = userDetails;
-        const userRole = userDetails.userRole;
-
-        //if (userRole !== "ComplaintHandler") {
-        //window.location.pathname = "/dashboard";
-        //alert("Only complaint handlers are allowed to allocate complaints");
-        //}
-
-        //if (userRole == "ComplaintHandler") {
-        const complaints = await fetch(
-          `${API_URL}/api/complaint/unallocatedComplaints`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-        const complaintData = await complaints.json();
-
-        const institutions = await fetch(
-          `${API_URL}/api/institution/institutions`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-        const institutionData = await institutions.json();
-
-        const publicUsers = await fetch(`${API_URL}/api/user/publicUsers`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const publicUserData = await publicUsers.json();
-
-        setComplaints(complaintData);
-        setInstitutions(institutionData);
-        setPublicUsers(publicUserData);
-        //}
+        fetchData(user);
 
         setUser(user);
         setLoading(false);
@@ -101,6 +105,7 @@ export const AuthProvider = ({ children }: any) => {
     complaints: complaints,
     institutions: institutions,
     publicUsers: publicUsers,
+    fetchData: fetchData,
   };
 
   return (

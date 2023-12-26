@@ -1,5 +1,7 @@
 "use client";
 
+import { auth } from "@/config/firebase";
+import { useAuth } from "@/context/auth";
 import React, { ChangeEvent, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
@@ -24,8 +26,63 @@ const StartInvestigationModal = ({
 
   const [investigationDescription, setInvestigationDescription] = useState("");
 
-  const handleStartInvestigationButtonClick = () => {
-    console.log("Investigation Started");
+  const { fetchData } = useAuth();
+  const { user } = useAuth() as any;
+  const userOffice = user.details.office;
+
+  const handleStartInvestigationButtonClick = async () => {
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+      const body = JSON.stringify({
+        investigationDescription,
+        complaintId,
+      });
+      const response = await fetch(`${API_URL}/api/investigation`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: body,
+      });
+      if (response.ok) {
+        const investigation = await response.json();
+        const investigationId = investigation.id;
+
+        const officeId = userOffice.id;
+        const body = JSON.stringify({
+          officeId,
+        });
+        const allocationResponse = await fetch(
+          `${API_URL}/api/investigation/${investigationId}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: body,
+          },
+        );
+        if (allocationResponse.ok) {
+          alert(
+            `Investigation started for complaint Id: ${complaintId}, Investigation Id: ${investigationId}`,
+          );
+          await fetchData(auth.currentUser);
+          handleCloseButtonClick();
+        }
+        alert(
+          `Investigation could not be allocated to office Id: ${officeId}.`,
+        );
+      } else {
+        throw new Error(
+          "Investigation not started for complaint Id: ${complaintId}.",
+        );
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
