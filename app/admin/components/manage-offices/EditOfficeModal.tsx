@@ -1,14 +1,25 @@
-import React from "react";
+"use client";
+
+import { auth } from "@/config/firebase";
+import { useAuth } from "@/context/adminAuth";
+import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
 type EditOfficeModalProps = {
   isVisible: boolean;
   officeId: number;
-  officeName: string | null;
-  officeDescription: string | null;
-  officeType: string | null;
+  officeName: string;
+  officeDescription: string;
+  officeType: string;
   handleModalCloseButtonClick: () => void;
 };
+
+enum OfficeType {
+  Institution = "Institution",
+  Division = "Division",
+  Branch = "Branch",
+  BeatOffice = "BeatOffice",
+}
 
 const EditOfficeModal = ({
   isVisible,
@@ -20,8 +31,58 @@ const EditOfficeModal = ({
 }: EditOfficeModalProps) => {
   if (!isVisible) return null;
 
-  const handleEditButtonClick = () => {
-    console.log("Office Edited");
+  const [name, setName] = useState(officeName);
+  const [description, setDescription] = useState(officeDescription);
+
+  const { fetchData } = useAuth();
+
+  const handleEditButtonClick = async () => {
+    const officeName: string = name;
+    const officeDescription: string = description;
+    const officeType: string = OfficeType.Branch;
+    const parentOfficeId: null = null;
+
+    if (
+      !officeName ||
+      !officeDescription ||
+      !officeType ||
+      officeName == "" ||
+      officeDescription == "" ||
+      officeType == ""
+    ) {
+      alert("All fields are required.");
+      return;
+    }
+
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+      const body = JSON.stringify({
+        officeName,
+        officeDescription,
+        officeType,
+      });
+      const newInstitutionResponse = await fetch(
+        `${API_URL}/api/institution/${officeId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: body,
+        },
+      );
+      if (newInstitutionResponse.ok) {
+        alert("Beat Office Updated.");
+        await fetchData(auth.currentUser);
+        handleModalCloseButtonClick();
+      } else {
+        throw new Error("Beat Office not updated.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -56,20 +117,22 @@ const EditOfficeModal = ({
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Office Name:&nbsp;</label>
+            <label>Beat Office Name:&nbsp;</label>
             <input
               type="text"
-              value={officeName ?? ""}
+              //value={officeName}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
-            <label>Office Description:&nbsp;</label>
+            <label>Beat Office Description:&nbsp;</label>
             <input
               type="text"
-              value={officeDescription ?? ""}
+              //value={officeDescription ?? ""}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
         </div>
@@ -81,7 +144,7 @@ const EditOfficeModal = ({
             className="rounded-lg border-2 border-green-700 bg-green-700 p-2 text-white hover:border-green-700 hover:bg-white hover:text-green-700"
             onClick={handleEditButtonClick}
           >
-            Edit Office
+            Edit Beat Office
           </button>
         </div>
       </div>

@@ -15,6 +15,9 @@ const DivisionTable = ({ divisions }: props) => {
             divisionName={division.name}
             divisionType="Division"
             divisionDescription={division.description}
+            divisionParentInstitutionName={
+              division.Division.Institution.office.name
+            }
           />
         );
       })}

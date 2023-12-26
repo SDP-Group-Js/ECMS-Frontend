@@ -4,10 +4,11 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdOutlineOpenInNew } from "react-icons/md";
 
 type props = {
-  branchId: number;
+  branchId: string;
   branchName: string | null;
   branchType: string | null;
   branchDescription: string | null;
+  branchParentDivisionName: string | null;
 };
 
 const BranchCard = ({
@@ -15,6 +16,7 @@ const BranchCard = ({
   branchName,
   branchType,
   branchDescription,
+  branchParentDivisionName,
 }: props) => {
   const [modalVisible, setEditModalVisible] = useState(false);
 
@@ -31,6 +33,7 @@ const BranchCard = ({
         <div className="mr-5 w-[15rem]">{branchId}</div>
         <div className="mx-5 w-[25rem]">{branchName}</div>
         <div className="mx-5 w-[25rem]">{branchDescription}</div>
+        <div className="mx-5 w-[25rem]">{branchParentDivisionName}</div>
         <div>
           <button
             onClick={handleEditButtonClick}
@@ -42,9 +45,9 @@ const BranchCard = ({
         <EditbranchModal
           isVisible={modalVisible}
           branchId={branchId}
-          branchName={branchName}
-          branchDescription={branchDescription}
-          branchType={branchType}
+          branchName={branchName ? branchName : ""}
+          branchDescription={branchDescription ? branchDescription : ""}
+          branchType={branchType ? branchType : ""}
           handleModalCloseButtonClick={handleModalCloseButtonClick}
         />
       </div>

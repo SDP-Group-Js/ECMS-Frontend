@@ -15,6 +15,7 @@ const OfficesTable = ({ branches }: props) => {
             branchName={branch.name}
             branchType="Branch"
             branchDescription={branch.description}
+            branchParentDivisionName={branch.Branch.Division.office.name}
           />
         );
       })}

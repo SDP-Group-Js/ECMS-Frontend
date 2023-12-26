@@ -1,5 +1,7 @@
 "use client";
 
+import { auth } from "@/config/firebase";
+import { useAuth } from "@/context/adminAuth";
 import React, { ChangeEvent, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
@@ -11,6 +13,13 @@ type EditInstitutionModalProps = {
   handleModalCloseButtonClick: () => void;
 };
 
+enum OfficeType {
+  Institution = "Institution",
+  Division = "Division",
+  Branch = "Branch",
+  BeatOffice = "BeatOffice",
+}
+
 const EditInstitutionModal = ({
   isVisible,
   handleModalCloseButtonClick,
@@ -19,11 +28,59 @@ const EditInstitutionModal = ({
   institutionDescription,
 }: EditInstitutionModalProps) => {
   if (!isVisible) return null;
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
 
-  const handleEditButtonClick = () => {
-    console.log("Institution Edited");
+  const [name, setName] = useState(institutionName);
+  const [description, setDescription] = useState(institutionDescription);
+
+  const { fetchData } = useAuth();
+
+  const handleEditButtonClick = async () => {
+    const officeName: string = name;
+    const officeDescription: string = description;
+    const officeType: string = OfficeType.Institution;
+    const parentOfficeId: null = null;
+
+    if (
+      !officeName ||
+      !officeDescription ||
+      !officeType ||
+      officeName == "" ||
+      officeDescription == "" ||
+      officeType == ""
+    ) {
+      alert("All fields are required.");
+      return;
+    }
+
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+      const body = JSON.stringify({
+        officeName,
+        officeDescription,
+        officeType,
+      });
+      const newInstitutionResponse = await fetch(
+        `${API_URL}/api/institution/${institutionId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: body,
+        },
+      );
+      if (newInstitutionResponse.ok) {
+        alert("Institution Updated.");
+        await fetchData(auth.currentUser);
+        handleModalCloseButtonClick();
+      } else {
+        throw new Error("Institution not updated.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (

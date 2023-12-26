@@ -61,7 +61,7 @@ export default function Home() {
     isAdmin = true;
   }
   return (
-    <div className="flex h-full w-screen flex-row overflow-hidden overflow-y-visible bg-slate-50">
+    <div className="flex h-full w-full flex-row overflow-x-visible overflow-y-visible">
       <Sidebar user={user.details} />
       <div className="flex-1">
         <InstmHeader />

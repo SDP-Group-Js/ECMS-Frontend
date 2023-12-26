@@ -1,14 +1,25 @@
-import React from "react";
+"use client";
+
+import { auth } from "@/config/firebase";
+import { useAuth } from "@/context/adminAuth";
+import React, { ChangeEvent, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
 type EditBranchModalProps = {
   isVisible: boolean;
-  branchId: number;
-  branchName: string | null;
-  branchDescription: string | null;
-  branchType: string | null;
+  branchId: string;
+  branchName: string;
+  branchDescription: string;
+  branchType: string;
   handleModalCloseButtonClick: () => void;
 };
+
+enum OfficeType {
+  Institution = "Institution",
+  Division = "Division",
+  Branch = "Branch",
+  BeatOffice = "BeatOffice",
+}
 
 const EditBranchModal = ({
   isVisible,
@@ -20,8 +31,58 @@ const EditBranchModal = ({
 }: EditBranchModalProps) => {
   if (!isVisible) return null;
 
-  const handleEditButtonClick = () => {
-    console.log("Branch Edited");
+  const [name, setName] = useState(branchName);
+  const [description, setDescription] = useState(branchDescription);
+
+  const { fetchData } = useAuth();
+
+  const handleEditButtonClick = async () => {
+    const officeName: string = name;
+    const officeDescription: string = description;
+    const officeType: string = OfficeType.Branch;
+    const parentOfficeId: null = null;
+
+    if (
+      !officeName ||
+      !officeDescription ||
+      !officeType ||
+      officeName == "" ||
+      officeDescription == "" ||
+      officeType == ""
+    ) {
+      alert("All fields are required.");
+      return;
+    }
+
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+      const body = JSON.stringify({
+        officeName,
+        officeDescription,
+        officeType,
+      });
+      const newInstitutionResponse = await fetch(
+        `${API_URL}/api/institution/${branchId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: body,
+        },
+      );
+      if (newInstitutionResponse.ok) {
+        alert("Branch Updated.");
+        await fetchData(auth.currentUser);
+        handleModalCloseButtonClick();
+      } else {
+        throw new Error("Branch not updated.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -61,6 +122,9 @@ const EditBranchModal = ({
               type="text"
               //value={branchName ?? ""}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setName(e.target.value)
+              }
             />
           </div>
 
@@ -70,6 +134,9 @@ const EditBranchModal = ({
               type="text"
               //value={branchDescription ?? ""}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setDescription(e.target.value)
+              }
             />
           </div>
         </div>

@@ -23,7 +23,7 @@ export default function ManInst({ institutions }: props) {
   return (
     <div>
       <br></br>
-      <div className="mx-14 my-10 rounded-md border-2 border-gray-400 px-3 py-4">
+      <div className="mx-14 my-10 w-[80vw] rounded-md border-2 border-gray-400 px-3 py-4">
         <div className="mt-8 text-lg">
           <div className="flex items-center justify-start space-x-3">
             <div className="w-60">

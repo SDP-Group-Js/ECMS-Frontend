@@ -1,4 +1,8 @@
-import React from "react";
+"use client";
+
+import { auth } from "@/config/firebase";
+import { useAuth } from "@/context/adminAuth";
+import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
 type AddInstitutionModalProps = {
@@ -8,6 +12,13 @@ type AddInstitutionModalProps = {
   handleModalCloseButtonClick: () => void;
 };
 
+enum OfficeType {
+  Institution = "Institution",
+  Division = "Division",
+  Branch = "Branch",
+  BeatOffice = "BeatOffice",
+}
+
 const AddInstitutionModal = ({
   onClick,
   isVisible,
@@ -15,9 +26,59 @@ const AddInstitutionModal = ({
 }: AddInstitutionModalProps) => {
   if (!isVisible) return null;
 
-  const handleAddButtonClick = () => {
-    console.log("Institution Added");
+  const [institutionName, setInstitutionName] = useState<string>("");
+  const [institutionDescription, setInstitutionDescription] =
+    useState<string>("");
+
+  const { fetchData } = useAuth();
+
+  const handleAddButtonClick = async () => {
+    const officeName: string = institutionName;
+    const officeDescription: string = institutionDescription;
+    const officeType: string = OfficeType.Institution;
+    const parentOfficeId: null = null;
+
+    if (
+      !officeName ||
+      !officeDescription ||
+      !officeType ||
+      officeName == "" ||
+      officeDescription == "" ||
+      officeType == ""
+    ) {
+      alert("All fields are required.");
+      return;
+    }
+
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+      const body = JSON.stringify({
+        officeName,
+        officeDescription,
+        officeType,
+        parentOfficeId,
+      });
+      const newInstitutionResponse = await fetch(`${API_URL}/api/institution`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: body,
+      });
+      if (newInstitutionResponse.ok) {
+        alert("Institution Added.");
+        await fetchData(auth.currentUser);
+        handleModalCloseButtonClick();
+      } else {
+        throw new Error("Institution not added.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 backdrop-blur-sm">
       <div className="flex w-[400px] flex-col rounded-lg bg-white p-2 md:w-[550px] lg:w-[600px]">
@@ -45,6 +106,9 @@ const AddInstitutionModal = ({
               type="text"
               placeholder="Enter Institute Name"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => {
+                setInstitutionName(e.target.value);
+              }}
             />
           </div>
 
@@ -54,6 +118,9 @@ const AddInstitutionModal = ({
               type="text"
               placeholder="Enter Institute Description"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => {
+                setInstitutionDescription(e.target.value);
+              }}
             />
           </div>
         </div>

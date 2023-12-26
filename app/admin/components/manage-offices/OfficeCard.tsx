@@ -8,6 +8,7 @@ type props = {
   officeName: string | null;
   officeType: string | null;
   officeDescription: string | null;
+  officeParentBranchName: string | null;
 };
 
 const OfficeCard = ({
@@ -15,6 +16,7 @@ const OfficeCard = ({
   officeName,
   officeType,
   officeDescription,
+  officeParentBranchName,
 }: props) => {
   const [modalVisible, setEditModalVisible] = useState(false);
 
@@ -31,6 +33,7 @@ const OfficeCard = ({
         <div className="mr-5 w-[15rem]">{officeId}</div>
         <div className="mx-5 w-[25rem]">{officeName}</div>
         <div className="mx-5 w-[25rem]">{officeDescription}</div>
+        <div className="mx-5 w-[25rem]">{officeParentBranchName}</div>
         <div>
           <button
             onClick={handleEditButtonClick}
@@ -42,9 +45,9 @@ const OfficeCard = ({
         <EditOfficeModal
           isVisible={modalVisible}
           officeId={officeId}
-          officeName={officeName}
-          officeDescription={officeDescription}
-          officeType={officeType}
+          officeName={officeName ? officeName : ""}
+          officeDescription={officeDescription ? officeDescription : ""}
+          officeType={officeType ? officeType : ""}
           handleModalCloseButtonClick={handleModalCloseButtonClick}
         />
       </div>

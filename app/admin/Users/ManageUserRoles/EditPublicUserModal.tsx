@@ -85,6 +85,16 @@ const EditUserModal = ({
           className="my-2 w-full flex-col justify-center text-xl"
         >
           <div className="mx-4 my-4 flex items-center justify-center">
+            <label>User Id:&nbsp;</label>
+            <input
+              type="text"
+              value={userId}
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+              readOnly
+            />
+          </div>
+
+          <div className="mx-4 my-4 flex items-center justify-center">
             <label>User Name:&nbsp;</label>
             <input
               type="text"

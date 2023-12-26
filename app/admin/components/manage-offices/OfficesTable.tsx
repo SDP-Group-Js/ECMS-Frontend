@@ -15,6 +15,7 @@ const OfficesTable = ({ beatOffices }: props) => {
             officeName={beatOffice.name}
             officeType="Beat Office"
             officeDescription={beatOffice.description}
+            officeParentBranchName={beatOffice.BeatOffice.Branch.office.name}
           />
         );
       })}

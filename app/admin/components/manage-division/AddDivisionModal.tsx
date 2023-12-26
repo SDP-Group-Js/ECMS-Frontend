@@ -1,7 +1,9 @@
 "use client";
-import React from "react";
+
+import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useAuth } from "@/context/adminAuth";
+import { auth } from "@/config/firebase";
 
 type AddDivisionModalProps = {
   isVisible: boolean;
@@ -10,6 +12,13 @@ type AddDivisionModalProps = {
   handleModalCloseButtonClick: () => void;
 };
 
+enum OfficeType {
+  Institution = "Institution",
+  Division = "Division",
+  Branch = "Branch",
+  BeatOffice = "BeatOffice",
+}
+
 const AddDivisionModal = ({
   onClick,
   isVisible,
@@ -17,11 +26,61 @@ const AddDivisionModal = ({
 }: AddDivisionModalProps) => {
   if (!isVisible) return null;
 
-  const { institutions } = useAuth();
+  const [divisionName, setDivisionName] = useState<string>("");
+  const [divisionDescription, setDivisionDescription] = useState<string>("");
+  const [parentInstitutionId, setParentInstitutionId] = useState<string>("");
 
-  const handleAddButtonClick = () => {
-    console.log("Division Added");
+  const { institutions, fetchData } = useAuth();
+
+  const handleAddButtonClick = async () => {
+    const officeName: string = divisionName;
+    const officeDescription: string = divisionDescription;
+    const officeType: string = OfficeType.Division;
+    const parentOfficeId: string = parentInstitutionId;
+
+    if (
+      !officeName ||
+      !officeDescription ||
+      !officeType ||
+      !parentOfficeId ||
+      officeName == "" ||
+      officeDescription == "" ||
+      officeType == "" ||
+      parentOfficeId == ""
+    ) {
+      alert("All fields are required.");
+      return;
+    }
+
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+      const body = JSON.stringify({
+        officeName,
+        officeDescription,
+        officeType,
+        parentOfficeId,
+      });
+      const newInstitutionResponse = await fetch(`${API_URL}/api/institution`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: body,
+      });
+      if (newInstitutionResponse.ok) {
+        alert("Division Added.");
+        await fetchData(auth.currentUser);
+        handleModalCloseButtonClick();
+      } else {
+        throw new Error("Division not added.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 backdrop-blur-sm">
       <div className="flex w-[400px] flex-col rounded-lg bg-white p-2 md:w-[550px] lg:w-[600px]">
@@ -49,14 +108,28 @@ const AddDivisionModal = ({
               type="text"
               placeholder="Enter Division Name"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => {
+                setDivisionName(e.target.value);
+              }}
             />
           </div>
 
           <div className="mx-4 my-4 flex items-center justify-center">
             <label>Parent Institution:</label>
-            <select className="ml-2 flex-grow rounded-lg border-2 p-2">
+            <select
+              className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => {
+                setParentInstitutionId(e.target.value);
+              }}
+            >
+              <option value="" selected>
+                Select Institution
+              </option>
               {institutions.map((institution: any) => (
-                <option key={institution.id} value={institution.id}>
+                <option
+                  key={institution.Institution.id}
+                  value={institution.Institution.id}
+                >
                   {institution.name}
                 </option>
               ))}
@@ -69,6 +142,9 @@ const AddDivisionModal = ({
               type="text"
               placeholder="Enter Division Description"
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => {
+                setDivisionDescription(e.target.value);
+              }}
             />
           </div>
         </div>

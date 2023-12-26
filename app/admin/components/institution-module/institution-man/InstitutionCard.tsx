@@ -32,7 +32,7 @@ const InstitutionCard = ({
       <div className="my-2 flex items-center justify-start rounded-xl border-2 border-gray-400 px-4 py-[0.75rem]">
         <div className="mr-5 w-[15rem]">{institutionId}</div>
         <div className="mx-5 w-[25rem]">{institutionName}</div>
-        <div className="mx-5 w-[25rem]">{institutionDescription}</div>
+        <div className="mx-5 w-[30rem]">{institutionDescription}</div>
         <div>
           <button
             onClick={handleEditButtonClick}

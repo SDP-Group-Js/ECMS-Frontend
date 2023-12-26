@@ -4,10 +4,11 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdOutlineOpenInNew } from "react-icons/md";
 
 type props = {
-  divisionId: number;
+  divisionId: string;
   divisionName: string | null;
   divisionType: string | null;
   divisionDescription: string | null;
+  divisionParentInstitutionName: string | null;
 };
 
 const DivisionCard = ({
@@ -15,6 +16,7 @@ const DivisionCard = ({
   divisionName,
   divisionType,
   divisionDescription,
+  divisionParentInstitutionName,
 }: props) => {
   const [modalVisible, setEditModalVisible] = useState(false);
 
@@ -31,6 +33,7 @@ const DivisionCard = ({
         <div className="mr-5 w-[15rem]">{divisionId}</div>
         <div className="mx-5 w-[25rem]">{divisionName}</div>
         <div className="mx-5 w-[25rem]">{divisionDescription}</div>
+        <div className="mx-5 w-[25rem]">{divisionParentInstitutionName}</div>
         <div>
           <button
             onClick={handleEditButtonClick}
@@ -42,9 +45,9 @@ const DivisionCard = ({
         <EditInstitutionModal
           isVisible={modalVisible}
           divisionId={divisionId}
-          divisionName={divisionName}
-          divisionDescription={divisionDescription}
-          divisionType={divisionType}
+          divisionName={divisionName ? divisionName : ""}
+          divisionDescription={divisionDescription ? divisionDescription : ""}
+          divisionType={divisionType ? divisionType : ""}
           handleModalCloseButtonClick={handleModalCloseButtonClick}
         />
       </div>

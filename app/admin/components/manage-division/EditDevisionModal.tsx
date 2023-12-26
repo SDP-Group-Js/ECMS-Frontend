@@ -1,15 +1,25 @@
 "use client";
-import React from "react";
+
+import { auth } from "@/config/firebase";
+import { useAuth } from "@/context/adminAuth";
+import React, { useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 
 type EditDivisionModalProps = {
   isVisible: boolean;
-  divisionId: number;
-  divisionName: string | null;
-  divisionDescription: string | null;
-  divisionType: string | null;
+  divisionId: string;
+  divisionName: string;
+  divisionDescription: string;
+  divisionType: string;
   handleModalCloseButtonClick: () => void;
 };
+
+enum OfficeType {
+  Institution = "Institution",
+  Division = "Division",
+  Branch = "Branch",
+  BeatOffice = "BeatOffice",
+}
 
 const EditDivisionModal = ({
   isVisible,
@@ -21,8 +31,58 @@ const EditDivisionModal = ({
 }: EditDivisionModalProps) => {
   if (!isVisible) return null;
 
-  const handleEditButtonClick = () => {
-    console.log("Division Edited");
+  const [name, setName] = useState(divisionName);
+  const [description, setDescription] = useState(divisionDescription);
+
+  const { fetchData } = useAuth();
+
+  const handleEditButtonClick = async () => {
+    const officeName: string = name;
+    const officeDescription: string = description;
+    const officeType: string = OfficeType.Division;
+    const parentOfficeId: null = null;
+
+    if (
+      !officeName ||
+      !officeDescription ||
+      !officeType ||
+      officeName == "" ||
+      officeDescription == "" ||
+      officeType == ""
+    ) {
+      alert("All fields are required.");
+      return;
+    }
+
+    try {
+      const API_URL = "http://localhost:8080";
+      const token = await auth.currentUser?.getIdToken(true);
+      const body = JSON.stringify({
+        officeName,
+        officeDescription,
+        officeType,
+      });
+      const newInstitutionResponse = await fetch(
+        `${API_URL}/api/institution/${divisionId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: body,
+        },
+      );
+      if (newInstitutionResponse.ok) {
+        alert("Division Updated.");
+        await fetchData(auth.currentUser);
+        handleModalCloseButtonClick();
+      } else {
+        throw new Error("Division not updated.");
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -62,6 +122,7 @@ const EditDivisionModal = ({
               type="text"
               //value={divisionName ?? ''}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
@@ -71,6 +132,7 @@ const EditDivisionModal = ({
               type="text"
               //value={divisionDescription ?? ''}
               className="ml-2 flex-grow rounded-lg border-2 p-2"
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
         </div>
