@@ -42,10 +42,10 @@ export default function InvestigationPage({ params }: params) {
     childOffices = userOffice.Institution.divisions;
   } else if (userOffice.Division != null) {
     officeType = OfficeType.Division;
-    childOffices = userOffice.Institution.branches;
+    childOffices = userOffice.Division.branches;
   } else if (userOffice.Branch != null) {
     officeType = OfficeType.Branch;
-    childOffices = userOffice.Institution.offices;
+    childOffices = userOffice.Branch.offices;
   }
 
   const assignedInvestigations = userOffice.assignedInvestigations;

@@ -28,7 +28,10 @@ const AllocateInvestigationModal = ({
     try {
       const API_URL = "http://localhost:8080";
       const token = await auth.currentUser?.getIdToken(true);
-
+      if (officeId == null || officeId == "") {
+        alert("Please select an office");
+        return;
+      }
       const body = JSON.stringify({
         officeId,
       });
@@ -99,6 +102,9 @@ const AllocateInvestigationModal = ({
               className="ml-2 flex-grow rounded-lg border-2 p-2"
               onChange={(e) => setOfficeId(e.target.value)}
             >
+              <option value="" selected>
+                Select an office
+              </option>
               {childOffices.length > 0 ? (
                 childOffices.map((office: any) => (
                   <option key={office.office.id} value={office.office.id}>
