@@ -34,6 +34,10 @@ export const AuthProvider = ({ children }: any) => {
     user.details = userDetails;
     const userRole = userDetails.userRole;
 
+    if (userRole == "ComplaintHandler") {
+      window.location.pathname = "/Complaints";
+    }
+
     setUser(user);
   };
 
