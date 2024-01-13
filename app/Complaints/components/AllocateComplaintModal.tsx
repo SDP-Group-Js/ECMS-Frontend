@@ -22,11 +22,11 @@ const StartInvestigationModal = ({
   complainer,
   handleCloseButtonClick,
 }: StartInvestigationModalProps) => {
-  if (!isVisible) return null;
-
   const { institutions, fetchData } = useAuth();
 
   const [institution, setInstitution] = useState("");
+
+  if (!isVisible) return null;
 
   const handleAllocateComplaintButtonClick = async () => {
     const institutionId: string = institution;

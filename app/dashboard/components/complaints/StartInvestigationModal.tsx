@@ -22,13 +22,13 @@ const StartInvestigationModal = ({
   complainer,
   handleCloseButtonClick,
 }: StartInvestigationModalProps) => {
-  if (!isVisible) return null;
-
   const [investigationDescription, setInvestigationDescription] = useState("");
 
   const { fetchData } = useAuth();
   const { user } = useAuth() as any;
   const userOffice = user.details.office;
+
+  if (!isVisible) return null;
 
   const handleStartInvestigationButtonClick = async () => {
     try {

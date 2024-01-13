@@ -92,8 +92,11 @@ const InvestigationStage = ({
             </div>
             <div>
               {investigationStage.actions.length > 0 &&
-                investigationStage.actions.map((action: any) => (
-                  <div className="my-2 flex items-center gap-2 rounded-lg border-2 px-3 py-2">
+                investigationStage.actions.map((action: any, index: number) => (
+                  <div
+                    className="my-2 flex items-center gap-2 rounded-lg border-2 px-3 py-2"
+                    key={index}
+                  >
                     <div className="text-lg font-bold">{action.name}</div>
                     <div className="text-lg">{action.description}</div>
                     <div className="flex-grow" />
@@ -204,10 +207,12 @@ const ViewActionDetail = ({ action, closeModal }: any) => {
         </div>
         <div className="my-4">{action.description}</div>
         <div className="m-auto flex w-fit flex-wrap gap-2">
-          {files.map((file, index) => (
-            <div className="flex h-[250px] w-[500px] items-center justify-center bg-gray-300">
+          {files.map((file, index: number) => (
+            <div
+              className="flex h-[250px] w-[500px] items-center justify-center bg-gray-300"
+              key={index}
+            >
               <img
-                key={index + 1}
                 src={file.url}
                 alt={`Preview ${index}`}
                 className="mx-auto mb-2 max-h-[100px]"

@@ -29,12 +29,12 @@ const EditBranchModal = ({
   branchDescription,
   branchType,
 }: EditBranchModalProps) => {
-  if (!isVisible) return null;
-
   const [name, setName] = useState(branchName);
   const [description, setDescription] = useState(branchDescription);
 
   const { fetchData } = useAuth();
+
+  if (!isVisible) return null;
 
   const handleEditButtonClick = async () => {
     const officeName: string = name;

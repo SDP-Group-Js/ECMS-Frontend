@@ -27,12 +27,12 @@ const EditInstitutionModal = ({
   institutionName,
   institutionDescription,
 }: EditInstitutionModalProps) => {
-  if (!isVisible) return null;
-
   const [name, setName] = useState(institutionName);
   const [description, setDescription] = useState(institutionDescription);
 
   const { fetchData } = useAuth();
+
+  if (!isVisible) return null;
 
   const handleEditButtonClick = async () => {
     const officeName: string = name;

@@ -31,13 +31,14 @@ const EditUserModal = ({
   userOfficeId,
   userType,
 }: EditUserModalProps) => {
-  if (!isVisible) return null;
   const { institutions, divisions, branches, beatOffices, fetchData } =
     useAuth();
 
   const [newUserName, setNewUserName] = useState(userName);
   const [newUserRole, setNewUserRole] = useState(userType);
   const [newUserOffice, setNewUserOffice] = useState(userOfficeId);
+
+  if (!isVisible) return null;
 
   const handleEditButtonClick = async () => {
     try {

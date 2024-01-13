@@ -22,12 +22,12 @@ const EditUserModal = ({
   nic,
   phone,
 }: EditUserModalProps) => {
-  if (!isVisible) return null;
-
   const [userName, setUserName] = useState(name);
   const [userNIC, setUserNIC] = useState(nic);
   const [userPhone, setUserPhone] = useState(phone);
   const { fetchData } = useAuth();
+
+  if (!isVisible) return null;
 
   const handleEditButtonClick = async () => {
     try {

@@ -8,9 +8,10 @@ type props = {
 const UserTable = ({ users }: props) => {
   return (
     <div>
-      {users.map((user: any) => {
+      {users.map((user: any, index: number) => {
         return (
           <PublicUserCard
+            key={index}
             userId={user.id}
             userName={user.name}
             userNIC={user.nic}

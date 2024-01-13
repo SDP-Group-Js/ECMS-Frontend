@@ -18,11 +18,11 @@ const AllocateInvestigationModal = ({
   investigationId,
   childOffices,
 }: AllocateInvestigationModalProps) => {
-  if (!isVisible) return null;
-
   const [officeId, setOfficeId] = useState("");
 
   const { fetchData } = useAuth();
+
+  if (!isVisible) return null;
 
   const handleAllocateInvestigationButtonClick = async () => {
     try {

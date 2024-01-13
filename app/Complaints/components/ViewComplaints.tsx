@@ -26,6 +26,7 @@ const ViewComplaints = ({
       <div>
         {complaints.map((complaint: any, index: number) => (
           <ComplaintCard
+            key={index}
             complaintId={complaint.id}
             complaintTitle={complaint.complaint_title}
             complaintDescription={complaint.complaint_description}

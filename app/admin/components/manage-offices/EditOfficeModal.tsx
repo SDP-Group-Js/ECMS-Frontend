@@ -29,12 +29,12 @@ const EditOfficeModal = ({
   officeDescription,
   officeType,
 }: EditOfficeModalProps) => {
-  if (!isVisible) return null;
-
   const [name, setName] = useState(officeName);
   const [description, setDescription] = useState(officeDescription);
 
   const { fetchData } = useAuth();
+
+  if (!isVisible) return null;
 
   const handleEditButtonClick = async () => {
     const officeName: string = name;

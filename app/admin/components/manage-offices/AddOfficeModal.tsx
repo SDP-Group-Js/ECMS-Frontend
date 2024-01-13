@@ -24,14 +24,14 @@ const AddOfficeModal = ({
   isVisible,
   handleModalCloseButtonClick,
 }: AddOfficeModalProps) => {
-  if (!isVisible) return null;
-
   const [beatOfficeName, setBeatOfficeName] = useState<string>("");
   const [beatOfficeDescription, setBeatOfficeDescription] =
     useState<string>("");
   const [parentBranchId, setParentBranchId] = useState<string>("");
 
   const { branches, fetchData } = useAuth();
+
+  if (!isVisible) return null;
 
   const handleAddButtonClick = async () => {
     const officeName: string = beatOfficeName;

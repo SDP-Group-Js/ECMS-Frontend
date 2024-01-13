@@ -24,13 +24,12 @@ const AddInstitutionModal = ({
   isVisible,
   handleModalCloseButtonClick,
 }: AddInstitutionModalProps) => {
-  if (!isVisible) return null;
-
   const [institutionName, setInstitutionName] = useState<string>("");
   const [institutionDescription, setInstitutionDescription] =
     useState<string>("");
-
   const { fetchData } = useAuth();
+
+  if (!isVisible) return null;
 
   const handleAddButtonClick = async () => {
     const officeName: string = institutionName;
