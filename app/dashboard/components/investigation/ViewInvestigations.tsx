@@ -33,6 +33,7 @@ const ViewInvestigations = ({
         <div className="my-2 text-xl font-bold">Main Investigations</div>
         {assignedInvestigations.map((investigation: any, index: number) => (
           <InvestigationCard
+            key={index}
             investigationId={investigation.id}
             investigationStatus={investigation.status}
             investigationDescription={investigation.description}
@@ -50,6 +51,7 @@ const ViewInvestigations = ({
         </div>
         {involvedInvestigations.map((investigation: any, index: number) => (
           <InvolvedInvestigationCard
+            key={index}
             investigationId={investigation.id}
             investigationStatus={investigation.status}
             investigationDescription={investigation.description}

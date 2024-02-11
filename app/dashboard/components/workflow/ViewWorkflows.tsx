@@ -28,8 +28,8 @@ const ViewWorkflows = ({ office }: any) => {
         />
       )}
       <div className="flex flex-wrap">
-        {office?.workflows.map((workflow: any) => (
-          <div className="w-1/3 py-2 pl-2 text-left">
+        {office?.workflows.map((workflow: any, index: number) => (
+          <div className="w-1/3 py-2 pl-2 text-left" key={index}>
             <button
               onClick={() => setSelectedWorkflow(workflow)}
               className="flex w-full items-center justify-between rounded-lg border-2 p-2 hover:bg-gray-700 hover:font-bold hover:text-white"
@@ -62,7 +62,10 @@ const ViewWorkflows = ({ office }: any) => {
             <div className="">
               {selectedWorkflow?.stages &&
                 selectedWorkflow.stages.map((stage: any, index: number) => (
-                  <div className="flex gap-2 rounded-lg px-2 py-2 text-left text-xl font-medium">
+                  <div
+                    className="flex gap-2 rounded-lg px-2 py-2 text-left text-xl font-medium"
+                    key={index}
+                  >
                     <div>{index + 1}</div>
                     <div>{stage}</div>
                   </div>

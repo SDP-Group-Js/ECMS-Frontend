@@ -8,9 +8,10 @@ type props = {
 const OfficesTable = ({ branches }: props) => {
   return (
     <div>
-      {branches.map((branch: any) => {
+      {branches.map((branch: any, index: number) => {
         return (
           <BranchCard
+            key={index}
             branchId={branch.id}
             branchName={branch.name}
             branchType="Branch"

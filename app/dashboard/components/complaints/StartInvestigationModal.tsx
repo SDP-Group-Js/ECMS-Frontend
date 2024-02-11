@@ -22,13 +22,21 @@ const StartInvestigationModal = ({
   complainer,
   handleCloseButtonClick,
 }: StartInvestigationModalProps) => {
-  if (!isVisible) return null;
-
   const [investigationDescription, setInvestigationDescription] = useState("");
 
   const { fetchData } = useAuth();
   const { user } = useAuth() as any;
   const userOffice = user.details.office;
+  const userRole = user.details.userRole;
+
+  if (!isVisible) return null;
+
+  if (userRole !== "SystemAdmin" && userRole !== "OfficeAdmin") {
+    alert(
+      "Only system admins and office admins are allowed to start an investigation",
+    );
+    return null;
+  }
 
   const handleStartInvestigationButtonClick = async () => {
     try {

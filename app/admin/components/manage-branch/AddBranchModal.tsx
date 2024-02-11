@@ -24,13 +24,13 @@ const AddBranchModal = ({
   isVisible,
   handleModalCloseButtonClick,
 }: AddBranchModalProps) => {
-  if (!isVisible) return null;
-
   const [branchName, setBranchName] = useState<string>("");
   const [branchDescription, setBranchDescription] = useState<string>("");
   const [parentDivisionId, setParentDivisionId] = useState<string>("");
 
   const { divisions, fetchData } = useAuth();
+
+  if (!isVisible) return null;
 
   const handleAddButtonClick = async () => {
     const officeName: string = branchName;

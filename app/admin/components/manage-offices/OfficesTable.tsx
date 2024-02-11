@@ -8,9 +8,10 @@ type props = {
 const OfficesTable = ({ beatOffices }: props) => {
   return (
     <div>
-      {beatOffices.map((beatOffice: any) => {
+      {beatOffices.map((beatOffice: any, index: number) => {
         return (
           <OfficeCard
+            key={index}
             officeId={beatOffice.id}
             officeName={beatOffice.name}
             officeType="Beat Office"

@@ -8,9 +8,10 @@ type props = {
 const InstitutionTable = ({ institutions }: props) => {
   return (
     <div>
-      {institutions.map((institution: any) => {
+      {institutions.map((institution: any, index: number) => {
         return (
           <InstitutionCard
+            key={index}
             institutionId={institution.id}
             institutionName={institution.name}
             institutionType="Institution"

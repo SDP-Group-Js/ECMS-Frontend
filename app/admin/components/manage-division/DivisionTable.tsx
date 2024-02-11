@@ -8,9 +8,10 @@ type props = {
 const DivisionTable = ({ divisions }: props) => {
   return (
     <div>
-      {divisions.map((division: any) => {
+      {divisions.map((division: any, index: number) => {
         return (
           <DivisionCard
+            key={index}
             divisionId={division.id}
             divisionName={division.name}
             divisionType="Division"

@@ -17,8 +17,6 @@ const AddUserModal = ({
   isVisible,
   handleModalCloseButtonClick,
 }: AddUserModalProps) => {
-  if (!isVisible) return null;
-
   const [userName, setUserName] = useState("");
   const [userNIC, setUserNIC] = useState("");
   const [userPhone, setUserPhone] = useState("");
@@ -26,6 +24,8 @@ const AddUserModal = ({
   const [userPassword, setUserPassword] = useState("");
 
   const { fetchData } = useAuth();
+
+  if (!isVisible) return null;
 
   const handleAddButtonClick = async () => {
     try {

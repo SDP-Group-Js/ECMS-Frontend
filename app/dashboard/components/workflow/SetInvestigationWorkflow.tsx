@@ -95,24 +95,30 @@ const SetInvestigationWorkflow = ({
 
           {openDropDown && (
             <div className="absolute right-0 z-50 flex max-h-[200px] w-[500px] flex-wrap gap-2 overflow-auto rounded-b-lg border-2 bg-white p-2">
-              {institutionWorkflows.map((institutionWorkflow) => (
-                <button
-                  onClick={() => {
-                    setSelectedWorkflow(institutionWorkflow);
-                    setOpenDropDown(false);
-                  }}
-                  className="my-1 w-full rounded-lg border-2 px-3 py-2 text-left font-bold hover:bg-gray-700 hover:text-white "
-                >
-                  {institutionWorkflow.name}
-                </button>
-              ))}
+              {institutionWorkflows.map(
+                (institutionWorkflow, index: number) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setSelectedWorkflow(institutionWorkflow);
+                      setOpenDropDown(false);
+                    }}
+                    className="my-1 w-full rounded-lg border-2 px-3 py-2 text-left font-bold hover:bg-gray-700 hover:text-white "
+                  >
+                    {institutionWorkflow.name}
+                  </button>
+                ),
+              )}
             </div>
           )}
 
           <div>
             {selectedWorkflow &&
               selectedWorkflow.stages.map((stage: any, index: number) => (
-                <div className="flex gap-2 rounded-lg px-2 py-2 text-left text-xl font-medium">
+                <div
+                  className="flex gap-2 rounded-lg px-2 py-2 text-left text-xl font-medium"
+                  key={index}
+                >
                   <div>{index + 1}</div>
                   <div>{stage}</div>
                 </div>

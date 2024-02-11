@@ -29,12 +29,12 @@ const EditDivisionModal = ({
   divisionDescription,
   divisionType,
 }: EditDivisionModalProps) => {
-  if (!isVisible) return null;
-
   const [name, setName] = useState(divisionName);
   const [description, setDescription] = useState(divisionDescription);
 
   const { fetchData } = useAuth();
+
+  if (!isVisible) return null;
 
   const handleEditButtonClick = async () => {
     const officeName: string = name;

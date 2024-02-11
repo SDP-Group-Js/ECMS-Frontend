@@ -41,12 +41,12 @@ export default function Home() {
     complaints = userOffice.Division.Institution.complaints;
     superInstitutionName = userOffice.Division.Institution.office.name;
     officeType = OfficeType.Division;
-    childOffices = userOffice.Institution.branches;
+    childOffices = userOffice.Division.branches;
   } else if (userOffice.Branch != null) {
     complaints = userOffice.Branch.Division.Institution.complaints;
     superInstitutionName = userOffice.Branch.Division.Institution.office.name;
     officeType = OfficeType.Branch;
-    childOffices = userOffice.Institution.offices;
+    childOffices = userOffice.Branch.offices;
   } else if (userOffice.BeatOffice != null) {
     complaints = userOffice.BeatOffice.Branch.Division.Institution.complaints;
     superInstitutionName =

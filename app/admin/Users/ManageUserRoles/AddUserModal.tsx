@@ -27,8 +27,6 @@ const AddUserModal = ({
   isVisible,
   handleModalCloseButtonClick,
 }: AddUserModalProps) => {
-  if (!isVisible) return null;
-
   const { institutions, divisions, branches, beatOffices, fetchData } =
     useAuth();
   const [userName, setUserName] = useState("");
@@ -36,6 +34,8 @@ const AddUserModal = ({
   const [userOffice, setUserOffice] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+
+  if (!isVisible) return null;
 
   const handleAddButtonClick = async () => {
     try {

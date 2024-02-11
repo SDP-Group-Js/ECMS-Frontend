@@ -24,13 +24,13 @@ const AddDivisionModal = ({
   isVisible,
   handleModalCloseButtonClick,
 }: AddDivisionModalProps) => {
-  if (!isVisible) return null;
-
   const [divisionName, setDivisionName] = useState<string>("");
   const [divisionDescription, setDivisionDescription] = useState<string>("");
   const [parentInstitutionId, setParentInstitutionId] = useState<string>("");
 
   const { institutions, fetchData } = useAuth();
+
+  if (!isVisible) return null;
 
   const handleAddButtonClick = async () => {
     const officeName: string = divisionName;
