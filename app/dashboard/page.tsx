@@ -27,6 +27,10 @@ export default function Home() {
     }
   };
 
+  const handleComplaintManagement = () => {
+    window.location.pathname = "/Complaints";
+  };
+
   const userOffice = user.details.office;
   let complaints: any = null;
   let superInstitutionName: string = "";
@@ -71,6 +75,11 @@ export default function Home() {
     isAdmin = true;
   }
 
+  let isComplainer = false;
+  if (user.details.userRole == "ComplaintHandler") {
+    isComplainer = true;
+  }
+
   return (
     <div className="flex h-screen w-screen flex-row overflow-hidden bg-slate-50">
       {isAdmin && <Sidebar user={user.details} />}
@@ -88,6 +97,14 @@ export default function Home() {
         </div>
         {!isAdmin && (
           <div className="mt-20 flex items-center justify-center">
+            {isComplainer && (
+              <button
+                className="m-2 rounded-full border-2 border-red-500 bg-red-500 px-4 py-3 text-xl font-bold text-white hover:bg-white hover:text-red-500"
+                onClick={handleComplaintManagement}
+              >
+                Complaints
+              </button>
+            )}
             <button
               className="m-2 rounded-full border-2 border-slate-500 bg-slate-500 px-4 py-3 text-xl font-bold text-white hover:bg-white hover:text-slate-500"
               onClick={handleLogout}

@@ -27,6 +27,10 @@ export default function Home() {
     }
   };
 
+  const handleDashboard = () => {
+    window.location.pathname = "/dashboard";
+  };
+
   const userOffice = user.details.office;
   let officeType: OfficeType = OfficeType.BeatOffice;
   if (userOffice.Institution != null) {
@@ -53,6 +57,12 @@ export default function Home() {
           />
         </div>
         <div className="mt-20 flex items-center justify-center">
+          <button
+            className="m-2 rounded-full border-2 border-green-500 bg-green-500 px-4 py-3 text-xl font-bold text-white hover:bg-white hover:text-green-500"
+            onClick={handleDashboard}
+          >
+            Dashboard
+          </button>
           <button
             className="m-2 rounded-full border-2 border-slate-500 bg-slate-500 px-4 py-3 text-xl font-bold text-white hover:bg-white hover:text-slate-500"
             onClick={handleLogout}

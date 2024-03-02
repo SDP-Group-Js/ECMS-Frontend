@@ -24,16 +24,17 @@ const ViewComplaints = ({
         <h3>View Complaints of {institutionName}</h3>
       </div>
       <div>
-        {complaints.map((complaint: any, index: number) => (
-          <ComplaintCard
-            key={index}
-            complaintId={complaint.id}
-            complaintTitle={complaint.complaint_title}
-            complaintDescription={complaint.complaint_description}
-            complaintComplainer={complaint.complainer}
-            complaintInvestigation={complaint.investigation}
-          />
-        ))}
+        {!!complaints &&
+          complaints.map((complaint: any, index: number) => (
+            <ComplaintCard
+              key={index}
+              complaintId={complaint.id}
+              complaintTitle={complaint.complaint_title}
+              complaintDescription={complaint.complaint_description}
+              complaintComplainer={complaint.complainer}
+              complaintInvestigation={complaint.investigation}
+            />
+          ))}
       </div>
     </div>
   );

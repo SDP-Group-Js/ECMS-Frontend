@@ -13,13 +13,13 @@ export default function LoginForm() {
 
   const router = useRouter();
 
-  const {user} = useAuth()
+  const { user } = useAuth();
 
   useEffect(() => {
     if (user) {
-      router.push("/dashboard")
+      router.push("/dashboard");
     }
-  }, [])
+  }, []);
 
   const login = async (e: any) => {
     e.preventDefault();

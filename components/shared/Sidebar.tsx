@@ -60,7 +60,7 @@ const Sidebarn = ({ user }: sideBarProps) => {
   };
 
   return (
-    <div className="text-brown flex w-60 flex-col bg-neutral-300 p-3">
+    <div className="text-brown sticky left-0 top-0 flex min-h-screen w-60 flex-col bg-neutral-300 p-3">
       <div className="flex items-center gap-3 px-2 py-2">
         <GiElephant fontSize={26} />
         <b>
